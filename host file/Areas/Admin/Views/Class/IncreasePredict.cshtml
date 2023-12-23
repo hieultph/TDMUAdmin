@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "IncreasePredict";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    @model IEnumerable<TDMUAdmin.Models.MySubject>
+                    <div>
+                        <div class="text-center m-4">
+                            <p style="color: red; font-size: 30px;">Lưu ý: </p>
+                            <p style="color: red; font-size: 30px;">ĐÂY LÀ ĐIỂM DỰ ĐOÁN DỰA TRÊN MÔ HÌNH MACHINE LEARNING, CHỈ MANG TÍNH CHẤT THAM KHẢO</p>
+                        </div>
+                    </div>
+                    <p>DỰ DOÁN THEO XU HƯỚNG TĂNG</p>
+                    <p>Học kỳ: @Html.DisplayFor(item => item.FirstOrDefault().HocKy)</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                @foreach (var item in Model)
+                                {
+                                    <th>@item.Ten</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                @foreach (var item in Model)
+                                {
+                                    <td>@string.Format("{0:0.00}", item.DGK)</td>
+                                }
+                            </tr>
+                            <tr>
+                                @foreach (var item in Model)
+                                {
+                                    <td>@string.Format("{0:0.00}", item.DCK)</td>
+                                }
+                            </tr>
+                            <tr>
+                                @foreach (var item in Model)
+                                {
+                                    <td>@string.Format("{0:0.00}", item.DTB)</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Điểm tổng kết: @string.Format("{0:0.00}", @ViewBag.DTK)</p>
+                    <p>Tổng số tín chỉ: @ViewBag.SoTC</p>
+                    <p>Điểm rèn luyện: @ViewBag.DRL</p>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+
+
+

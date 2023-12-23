@@ -1,0 +1,97 @@
+﻿@model TDMUAdmin.Models.MyNotify
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <div>
+                        <h4>ThongBao</h4>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.ID)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.ID)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TenNguoiGui)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TenNguoiGui)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NgayGui)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NgayGui)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.TieuDe)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TieuDe)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.NoiDung)
+                            </dt>
+
+                            <dd>
+                                @Html.TextAreaFor(model => model.NoiDung, new { @class = "mc-tinymce" })
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.GhiChu)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.GhiChu)
+                            </dd>
+
+                        </dl>
+                    </div>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { maTB = Model.ID }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+
+                </div>
+            </div>
+        </section>
+    </div>
+}
+
+    

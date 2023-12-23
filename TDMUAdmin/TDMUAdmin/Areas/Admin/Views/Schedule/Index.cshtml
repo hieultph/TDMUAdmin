@@ -1,0 +1,162 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MySession>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/Areas/Admin/Assets/package/Ultimate-Event-Calendar/Ultimate-Event-Calendar.css" />
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    Chọn năm: @Html.DropDownList("YearList", null, new { id = "i-YearList" })
+                    Chọn tháng: @Html.DropDownList("MonthList", null, new { id = "i-MonthList" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <div id="cal" class="container">
+                        <i class="fa fa-calendar-o d-none"></i>
+                        <div class="row date-cont date-sticky">
+                            <div class="col offset-md-0">
+                                <p id="year" class="text-center text-white mb-2 mt-2"></p>
+                            </div>
+                        </div>
+                        <div class="row d-none d-md-flex seven-cols days-sticky">
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">MONDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">TUESDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">WEDNESDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">THURSDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">FRIDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">SATURDAY</p>
+                            </div>
+                            <div class="col-md-1 day days">
+                                <p class="text-center text-white">SUNDAY</p>
+                            </div>
+                        </div>
+                        <div class="row seven-cols">
+                            @{
+                                int i = 2;
+                                int day = 1;
+                                int dow = 2;
+
+                                // First loop to create blank cells until the start day
+                                for (; i <= 8; i++)
+                                {
+                                    if (dow == ViewBag.DayOfWeek)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-1 text-truncate d-none d-md-block ps-1 pe-1 day-blank"></div>
+                                        dow++;
+                                    }
+                                }
+
+                                // Second loop to create cells for the days in the month
+                                for (; i < ViewBag.DayOfMonth + ViewBag.DayOfWeek; i++)
+                                {
+                                    if (dow > 8)
+                                    {
+                                        dow = 2;
+                                    }
+
+                                    <div class="col-md-1 day bg-events">
+                                        <p class="date">@day</p>
+                                        @foreach (var item in Model)
+                                        {
+                                            if (item.NgayThu == dow && item.NgayDienRa.Value.Day == day)
+                                            {
+                                                <p class="text-center text-white bg-primary event" data-bs-toggle="tooltip" title="Nhấn để xem chi tiết">
+                                                    @item.TenMonHoc
+                                                    @item.Phong
+                                                    (@item.NgayDienRa.Value.TimeOfDay - @item.NgayKetThuc.Value.TimeOfDay)
+                                                    @item.TenGiangVien
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                continue;
+                                            }
+                                        }
+                                    </div>
+
+                                    dow++;
+                                    day++;
+
+                                }
+
+                                // Third loop to fill the remaining cells up to 37
+                                for (; i < 37; i++)
+                                {
+                                    <div class="col-md-1 text-truncate d-none d-md-block ps-1 pe-1 day-blank"></div>
+                                }
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="~/Areas/Admin/Assets/package/Ultimate-Event-Calendar/Ultimate-Event-Calendar.js"></script>
+    <script src="~/Areas/Admin/Assets/package/Ultimate-Event-Calendar/bs-init.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        $('#i-YearList').on('change', function () {
+            var selectedYear = $(this).val();
+            var selectedMonth = $('#i-MonthList').val();
+
+            // Reload the page with the selected value
+            window.location.href = '@Url.Action("Index", "Schedule")' + '?year=' + String(selectedYear) + '&month=' + String(selectedMonth);
+        });
+    });
+
+    $(document).ready(function () {
+        $('#i-MonthList').on('change', function () {
+            var selectedYear = $('#i-YearList').val();
+            var selectedMonth = $(this).val();
+
+            // Reload the page with the selected value
+            window.location.href = '@Url.Action("Index", "Schedule")' + '?year=' + String(selectedYear) + '&month=' + String(selectedMonth);
+        });
+    });
+    </script>
+}
+

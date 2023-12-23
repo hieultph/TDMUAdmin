@@ -1,0 +1,107 @@
+use TDMUAppDB
+go
+
+-- Add foreign key
+
+alter table NhomNganh
+add foreign key (IDKhoa) references Khoa(ID);
+
+alter table Lop
+add foreign key (IDNhomNganh) references NhomNganh(ID);
+
+alter table TaiKhoan
+add foreign key (IDLop) references Lop(ID),
+	foreign key (IDQuyenTruyCap) references QuyenTruyCap(ID);
+
+alter table BangDiem
+add foreign key (IDSinhVien) references TaiKhoan(ID),
+	foreign key (IDMonHoc) references MonHoc(ID);
+
+alter table MonHoc
+add foreign key (IDHocKy) references HocKy(ID),
+	foreign key (IDNamHoc) references NamHoc(ID);
+
+alter table NhomMonHoc
+add foreign key (IDMonHoc) references MonHoc(ID),
+	foreign key (IDGiangVien) references TaiKhoan(ID);
+
+alter table NhomMonHoc_SinhVien
+add foreign key (IDSinhVien) references TaiKhoan(ID),
+	foreign key (IDNhomMonHoc) references NhomMonHoc(ID);
+
+alter table NhomMonHoc_BuoiHoc
+add foreign key (IDNhomMonHoc) references NhomMonHoc(ID),
+	foreign key (IDBuoiHoc) references BuoiHoc(ID);
+
+alter table DiemRenLuyen
+add foreign key (IDSinhVien) references TaiKhoan(ID),
+	foreign key (IDHocKy) references HocKy(ID),
+	foreign key (IDNamHoc) references NamHoc(ID);
+
+alter table ThoiKhoaBieu
+add foreign key (IDTaiKhoan) references TaiKhoan(ID);
+
+alter table ThoiKhoaBieu_BuoiHoc
+add foreign key (IDThoiKhoaBieu) references ThoiKhoaBieu(ID),
+	foreign key (IDBuoiHoc) references BuoiHoc(ID);
+
+alter table ThongBao
+add foreign key (IDLoaiThongBao) references LoaiThongBao(ID);
+
+alter table ThongBao_NguoiChinhSua
+add foreign key (IDNguoiChinhSua) references TaiKhoan(ID),
+	foreign key (IDThongBao) references ThongBao(ID);
+
+alter table ThongBao_NguoiNhan
+add foreign key (IDThongBao) references ThongBao(ID),
+	foreign key (IDNguoiNhan) references TaiKhoan(ID);
+
+alter table BaiViet
+add foreign key (IDTLBaiViet) references TLBaiViet(ID);
+
+alter table BaiViet_NguoiThamGia
+add foreign key (IDBaiViet) references BaiViet(ID),
+	foreign key (IDNguoiThamGia) references TaiKhoan(ID);
+
+alter table BaiViet_NguoiChinhSua
+add foreign key (IDBaiViet) references BaiViet(ID),
+	foreign key (IDNguoiChinhSua) references TaiKhoan(ID);
+
+alter table NhomChat_NguoiThamGia
+add foreign key (IDNhomChat) references NhomChat(ID),
+	foreign key (IDNguoiThamGia) references TaiKhoan(ID);
+
+alter table TinNhan
+add foreign key (IDTaiKhoan) references TaiKhoan(ID);
+
+alter table TinNhan_GuiDen
+add foreign key (IDTinNhan) references TinNhan(ID),
+	foreign key (IDNguoiNhan) references TaiKhoan(ID),
+	foreign key (IDNhomNhan) references NhomChat(ID);
+
+alter table CauHoi
+add foreign key (IDNguoiGui) references TaiKhoan(ID);
+
+alter table CauHoi_ChuDeCauHoi
+add foreign key (IDCauHoi) references CauHoi(ID),
+	foreign key (IDChuDeCauHoi) references ChuDeCauHoi(ID);
+
+alter table CauHoi_NguoiTraLoi
+add foreign key (IDCauHoi) references CauHoi(ID),
+	foreign key (IDNguoiTraLoi) references TaiKhoan(ID);
+
+alter table CauHoi_NguoiTraLoi_NguoiTraLoi
+add foreign key (IDCauHoi_NguoiTraLoi) references CauHoi_NguoiTraLoi(ID),
+	foreign key (IDNguoiTraLoi) references TaiKhoan(ID);
+
+alter table CauHoi_NguoiDanhGia
+add foreign key (IDCauHoi) references CauHoi(ID),
+	foreign key (IDNguoiDanhGia) references TaiKhoan(ID);
+
+-- Other alter table
+
+alter table TaiKhoan
+add foreign key (IDThoiKhoaBieu) references ThoiKhoaBieu(ID);
+
+alter table Lop
+add foreign key (IDGiangVien) references TaiKhoan(ID);

@@ -1,0 +1,97 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyClass>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    @using (Html.BeginForm("Index", "Class", FormMethod.Get))
+                    {
+                        <h2>
+                            DANH SÁCH CÁC LỚP
+                        </h2>
+                        <div>
+                            Lọc theo khoa:
+                            @Html.DropDownList("MaKhoa")
+                            Lọc theo nhóm ngành:
+                            @Html.DropDownList("MaNganh")
+                            Tìm theo mã lớp học:
+                            <input type="text" name="strSearch" value="@ViewBag.Search" placeholder="Nhập tên cần tìm..." size="30" />
+                            <input type="submit" value="Tìm kiếm" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Mã lớp</th>
+                                <th class="text-center">Mã giảng viên</th>
+                                <th class="text-center">Nhóm ngành</th>
+                                <th class="text-center">Khoa/Viện</th>
+                                <th class="text-center">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center maLop" data-maLop="@item.ID">@item.ID</td>
+                                    <td class="text-center">@item.IDGiangVien</td>
+                                    <td class="text-center">@item.NhomNganh</td>
+                                    <td class="text-center">@item.KhoaVien</td>
+                                    <td class="text-center">@item.GhiChu</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        $('.maLop').on('click', function () {
+            var maLop = $(this).text(); // get the text content of the clicked cell
+            var url = '@Url.Action("ManageClass", "Class")' + '?maLop=' + maLop;
+
+            // Redirect to the constructed URL
+            window.location.href = url;
+        });
+    });
+    </script>
+
+    <style>
+        a:hover {
+            color: red;
+        }
+    </style>
+}
+

@@ -1,0 +1,26 @@
+// Take notify by ID
+select ltb.Ten, tb.TieuDe, tb.NoiDung
+from ThongBao tb
+join LoaiThongBao ltb on tb.IDLoaiThongBao = ltb.ID
+join ThongBao_NguoiNhan tbnn on tb.ID = tbnn.IDThongBao
+join TaiKhoan tk on tbnn.IDNguoiNhan = tk.ID
+where tk.ID = 'TK0000000001'
+
+// View participant of article
+select bv.TieuDe, tk.HoTen as N'Người tham gia', bvntg.NgayDangKy
+from BaiViet bv
+join BaiViet_NguoiThamGia bvntg on bv.ID = bvntg.IDBaiViet
+join TaiKhoan tk on bvntg.IDNguoiThamGia = tk.ID
+where bv.ID = 'BV0000000001'
+
+// View question has been approve in forum
+select ch.TieuDe, ch.NoiDung, tk.HoTen as N'Người gửi', ch.NgayGui
+from CauHoi ch
+join TaiKhoan tk on ch.IDNguoiGui = tk.ID
+where ch.DuocDuyet = 1
+
+// View question hasn't approve in forum
+select ch.TieuDe, ch.NoiDung, tk.HoTen as N'Người gửi', ch.NgayGui
+from CauHoi ch
+join TaiKhoan tk on ch.IDNguoiGui = tk.ID
+where ch.DuocDuyet = 0

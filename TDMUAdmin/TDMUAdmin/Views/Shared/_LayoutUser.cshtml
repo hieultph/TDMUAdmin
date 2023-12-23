@@ -1,0 +1,484 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <title>TDMU</title>
+    <script src="https://kit.fontawesome.com/eaa4609b2f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <a class="navbar-brand" href="#">
+                    <img src="~/Assets/images/lg2.png" class="img-fluid" style="height: 2em;">
+                </a>
+                <h1>Đại học Thủ Dầu Một</h1>
+            </div>
+
+            <div class="options">
+                <a href="~/TDMUWebsite/Index">Giới thiệu</a>
+                <a href="~/TinTuc/TinTuc">Tin tức</a>
+                <a href="~/ThongBao/ThongBao">Thông báo</a>
+                <a href="~/TDMUWebsite/LienHe">Liên hệ</a>
+            </div>
+
+            <div class="options">
+                @if (Session["User"] != null)
+                {
+
+                    <a href="@Url.Action("Dangxuat", "Login")" class="current"> Đăng Xuất</a>
+                    <a href="~/CauHoi/Create">FAQ</a>
+                    <a href="~/TDMUWebsite/timetable">TGB</a>
+
+
+                }
+                else
+                {
+
+                    <a href="@Url.Action("Login","Login")" class="current">Đăng Nhập</a>
+                    <a href="~/CauHoi/Create">FAQ</a>
+                }
+
+            </div>
+        </div>
+    </nav>
+
+    <header class="showcase">
+        <div class="container">
+            <div class="text-content" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);text-align: center;">
+                <h1 class="text-center" style="font-weight: 700">TRƯỜNG ĐẠI HỌC THỦ DẦU MỘT</h1>
+                <h5 class="text-center pb-3">
+                    <a class="text-white">Khát vọng</a>  <a class="text-white">Trách nhiệm</a>  <a class="text-white">Sáng tạo</a>
+                </h5>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        @RenderBody()
+    </div>
+    @RenderSection("script", required: false)
+    <footer>
+        <div class="copyright">
+            <br>© 2023 Phòng Đào tạo Đại học - Trường Đại học Thủ Dầu Một
+            <br>Số 06 Trần Văn Ơn, Phú Hòa, Thủ Dầu Một, Bình Dương, Hotline: 0814409222
+            <br>Số điện thoại: (0274) 3834518 (110)
+            <br>Email: phongdaotao@tdmu.edu.vn
+
+
+
+        </div>
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
+
+<style>
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
+</style>
+<style>
+
+    :root {
+        --headings-font: "Handlee", cursive;
+        --primary-color: rgb(240, 37, 37);
+        --light-grey-color: rgb(243, 243, 243);
+        --dark-color: rgb(46, 46, 46);
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: "Roboto", sans-serif;
+    }
+
+    p {
+        line-height: 1.5rem;
+        padding: 0.5rem 0rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: "Quicksand", sans-serif;
+    }
+
+    .container {
+        max-width: 1100px;
+        padding: 0px 20px;
+        margin: auto;
+    }
+
+    body {
+        background-color: var(--light-grey-color);
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .sports-category,
+    .entertainment-category,
+    .technology-category {
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        padding: 2px 20px;
+        border-radius: 50px;
+        color: white;
+        margin: 0.5rem 0rem;
+    }
+
+    .sports-category {
+        background-color: orange;
+    }
+
+    .entertainment-category {
+        background-color: rgb(186, 98, 197);
+    }
+
+    .technology-category {
+        background-color: rgb(0, 151, 245);
+    }
+
+    /*=====
+    NAV BAR
+    =====*/
+
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: white;
+    }
+
+        nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 10px 0px;
+    }
+
+        .logo h1,
+        .logo h1 span {
+            font-family: var(--headings-font);
+            font-size: 1.8rem;
+        }
+
+        .logo i,
+        .logo span {
+            color: var(--primary-color);
+        }
+
+    .social {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 0.4rem;
+    }
+
+        .social i {
+            color: var(--dark-color);
+        }
+
+            .social i:hover {
+                color: var(--primary-color);
+            }
+
+    .options a {
+        text-decoration: none;
+        padding: 10px 15px;
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: black;
+        letter-spacing: 1px;
+        float: left;
+    }
+
+        .options a:hover {
+            background-color: var(--light-grey-color);
+            color: black !important;
+        }
+
+    .current {
+        background-color: var(--primary-color);
+        color: white !important;
+    }
+
+    /* =====
+    SHOWCASE
+    ===== */
+
+    .showcase {
+        position: relative;
+        color: white;
+        height: 60vh;
+        background: url(/Assets/images/bg1.jpg);
+    }
+
+        .showcase::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .showcase .container {
+            height: inherit;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showcase .text-content {
+            position: relative;
+            padding: 0px 30px;
+        }
+
+            .showcase .text-content h1 {
+                text-transform: uppercase;
+                font-size: 1.6rem;
+                margin: 10px 0px;
+                letter-spacing: 1px;
+                font-family: var(--headings-font);
+            }
+
+            .showcase .text-content p:nth-child(3) {
+                text-align: justify;
+            }
+
+            .showcase .text-content a {
+                text-decoration: none;
+                padding: 10px 15px;
+                font-size: 1.05rem;
+                font-weight: 400;
+                display: inline-block;
+                color: white;
+                letter-spacing: 1px;
+                background-color: var(--primary-color);
+                margin-top: 10px;
+            }
+
+                .showcase .text-content a:hover {
+                    background-color: var(--light-grey-color);
+                    color: black !important;
+                }
+
+    /* =====
+    ARTICLES
+    ===== */
+
+    /* ===
+    FOOTER
+    === */
+
+    footer {
+        background-color: var(--dark-color);
+        color: white;
+        height: 100%;
+        padding: 2rem 0rem;
+        margin-top: 1rem;
+    }
+
+    .footer {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 1.5rem;
+    }
+
+        .footer h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        .footer .logo {
+            margin: 0rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer article:nth-child(3) p {
+            border-bottom: 1px dotted rgb(82, 82, 82);
+        }
+
+        .footer input {
+            width: 100%;
+            padding: 0.5rem;
+            margin: 5px 0px;
+        }
+
+        .footer article:nth-child(2) a {
+            display: block;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: var(--primary-color);
+        }
+
+        .footer article:last-child a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            padding: 0.6rem 0.8rem;
+            background-color: orange;
+            margin-top: 0.7rem;
+        }
+
+        .footer a:hover {
+            background-color: var(--light-grey-color) !important;
+            color: black !important;
+        }
+
+    .copyright {
+        padding: 0.5rem;
+        background-color: rgb(75, 75, 75);
+        text-align: center;
+        margin-top: 2rem;
+        font-size: 0.8rem;
+    }
+
+    /* ==
+    ABOUT
+    == */
+
+    .about {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        grid-gap: 1.5rem;
+        margin: 1.7rem 0rem;
+    }
+
+        .about article {
+            background-color: white;
+            padding: 1rem;
+        }
+
+            .about article:first-child {
+                grid-row: 1 / span 3;
+            }
+
+                .about article:first-child h2 {
+                    padding: 0.7rem 0rem;
+                    font-size: 1.7rem;
+                    font-weight: 900;
+                }
+
+            .about article:last-child {
+                color: white;
+                background-color: var(--primary-color);
+            }
+
+                .about article:last-child h3 {
+                    padding: 0.7rem 0rem;
+                }
+
+                .about article:last-child a {
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 100%;
+                    color: white;
+                    background-color: var(--dark-color);
+                    text-align: center;
+                    padding: 0.5rem 0rem;
+                    margin-top: 0.7rem;
+                }
+
+    /* =========
+    ARTICLE PAGE
+    ==========*/
+
+    .article-page {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        grid-gap: 1.5rem;
+        margin: 1.7rem 0rem;
+    }
+
+        .article-page article {
+            background-color: white;
+            padding: 1rem;
+        }
+
+        .article-page > *:first-child {
+            grid-row: 1 / span 3;
+        }
+
+            .article-page > *:first-child > *:nth-child(3) {
+                background-color: var(--light-grey-color);
+                padding: 0.4rem 1rem;
+                margin: 0.7rem 0rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+                .article-page > *:first-child > *:nth-child(3) i {
+                    margin-right: 0.5rem;
+                }
+
+        .article-page article:last-child {
+            color: white;
+            background-color: orange;
+        }
+
+            .article-page article:last-child h3 {
+                padding: 0.7rem 0rem;
+            }
+
+            .article-page article:last-child a {
+                text-decoration: none;
+                display: inline-block;
+                width: 100%;
+                color: white;
+                background-color: var(--dark-color);
+                text-align: center;
+                padding: 0.5rem 0rem;
+                margin-top: 0.7rem;
+            }
+
+        .article-page ul {
+            list-style-position: inside;
+            list-style-type: "-    ";
+        }
+
+            .article-page ul li {
+                padding: 0.5rem 0rem;
+                border-bottom: 1px dotted black;
+            }
+
+    /* =======
+    FOR TABLET
+    ======= */
+
+</style>

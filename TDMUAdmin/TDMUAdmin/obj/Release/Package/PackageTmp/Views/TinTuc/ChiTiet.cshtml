@@ -1,0 +1,103 @@
+﻿@model TDMUAdmin.Models.BaiViet
+
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="container">
+    <section class="article-page">
+        <article>
+            <img src="~/Assets/images/01.jpg" alt="" />
+            <h2>@Model.TieuDe</h2>
+            <div>
+                <p>
+                    <i class="fas fa-user fa-1x"></i>23/6/2023
+                </p>
+            </div>
+            <p>
+                @Html.Raw(@Model.NoiDung.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp")))
+            </p>
+
+        </article>
+
+        <article>
+            <h3>KHÁM PHÁ TDMU</h3>
+            <p>
+                TDMU - Thu Dau Mot University
+               
+            </p>
+            <p>
+
+                2009
+            </p>
+            <p>
+               
+                Thành lập Công lập Loại hình trường
+            </p>
+            <a href="#">Xem thêm giới thiệu TDMU</a>
+        </article>
+    </section>
+</div>
+
+<style>
+
+    .article-page {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        grid-gap: 1.5rem;
+        margin: 1.7rem 0rem;
+    }
+
+        .article-page article {
+            background-color: white;
+            padding: 1rem;
+        }
+
+        .article-page > *:first-child {
+            grid-row: 1 / span 3;
+        }
+
+            .article-page > *:first-child > *:nth-child(3) {
+                background-color: var(--light-grey-color);
+                padding: 0.4rem 1rem;
+                margin: 0.7rem 0rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+                .article-page > *:first-child > *:nth-child(3) i {
+                    margin-right: 0.5rem;
+                }
+
+        .article-page article:last-child {
+            color: white;
+            background-color: orange;
+        }
+
+            .article-page article:last-child h3 {
+                padding: 0.7rem 0rem;
+            }
+
+            .article-page article:last-child a {
+                text-decoration: none;
+                display: inline-block;
+                width: 100%;
+                color: white;
+                background-color: var(--dark-color);
+                text-align: center;
+                padding: 0.5rem 0rem;
+                margin-top: 0.7rem;
+            }
+
+        .article-page ul {
+            list-style-position: inside;
+            list-style-type: "-    ";
+        }
+
+            .article-page ul li {
+                padding: 0.5rem 0rem;
+                border-bottom: 1px dotted black;
+            }
+
+</style>

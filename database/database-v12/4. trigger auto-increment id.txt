@@ -1,0 +1,1053 @@
+use TDMUAppDB
+go
+
+-- Khoa
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_Khoa_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_Khoa_Insert
+on Khoa
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'K' + right('0000000000' + cast(next value for Seq_Khoa_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from Khoa where ID = @ID)
+    begin
+        set @ID = 'K' + right('0000000000' + cast(next value for Seq_Khoa_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into Khoa (ID, Ten, GhiChu)
+    select @ID, Ten, GhiChu
+    from inserted;
+end
+go
+
+-- NhomNganh
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_NhomNganh_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_NhomNganh_Insert
+on NhomNganh
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'NN' + right('0000000000' + cast(next value for Seq_NhomNganh_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from NhomNganh where ID = @ID)
+    begin
+        set @ID = 'NN' + right('0000000000' + cast(next value for Seq_NhomNganh_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into NhomNganh (ID, IDKhoa, Ten, GhiChu)
+    select @ID, IDKhoa, Ten, GhiChu
+    from inserted;
+end
+go
+
+
+-- Lop
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_Lop_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_Lop_Insert
+on Lop
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'L' + right('0000000000' + cast(next value for Seq_Lop_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from Lop where ID = @ID)
+    begin
+        set @ID = 'L' + right('0000000000' + cast(next value for Seq_Lop_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into Lop (ID, IDGiangVien, IDNhomNganh, GhiChu)
+    select @ID, IDGiangVien, IDNhomNganh, GhiChu
+    from inserted;
+end
+go
+
+-- HocKy
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_HocKy_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_HocKy_Insert
+on HocKy
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'HK' + right('0000000000' + cast(next value for Seq_HocKy_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from HocKy where ID = @ID)
+    begin
+        SET @ID = 'HK' + RIGHT('0000000000' + CAST(NEXT VALUE FOR Seq_HocKy_ID AS varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into HocKy (ID, Ten, GhiChu)
+    select @ID, Ten, GhiChu
+    from inserted;
+end
+go
+
+-- NamHoc
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_NamHoc_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_NamHoc_Insert
+on NamHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'NH' + right('0000000000' + cast(next value for Seq_NamHoc_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from NamHoc where ID = @ID)
+    begin
+        SET @ID = 'NH' + RIGHT('0000000000' + CAST(NEXT VALUE FOR Seq_NamHoc_ID AS varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into NamHoc (ID, Ten, GhiChu)
+    select @ID, Ten, GhiChu
+    from inserted;
+end
+go
+
+-- MonHoc
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_MonHoc_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_MonHoc_Insert
+on MonHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'MH' + right('0000000000' + cast(next value for Seq_MonHoc_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from MonHoc where ID = @ID)
+    begin
+        SET @ID = 'MH' + RIGHT('0000000000' + CAST(NEXT VALUE FOR Seq_MonHoc_ID AS varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into MonHoc (ID, IDHocKy, IDNamHoc, Ten, SoTC, GhiChu)
+    select @ID, IDHocKy, IDNamHoc, Ten, SoTC, GhiChu
+    from inserted;
+end
+go
+
+------------------------------------------------------------------------------------
+
+-- QuyenTruyCap
+create sequence Seq_QuyenTruyCap_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_QuyenTruyCap_Insert
+on QuyenTruyCap
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'QTC' + right('0000000000' + cast(next value for Seq_QuyenTruyCap_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from QuyenTruyCap where ID = @ID)
+    begin
+        set @ID = 'QTC' + right('0000000000' + cast(next value for Seq_QuyenTruyCap_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into QuyenTruyCap (ID , Ten, CapDo , GhiChu)
+    select @ID, Ten, CapDo, GhiChu
+    from inserted;
+end
+go
+
+-- TaiKhoan
+create sequence Seq_TaiKhoan_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_TaiKhoan_Insert
+on TaiKhoan
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'TK' + right('0000000000' + cast(next value for Seq_TaiKhoan_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from TaiKhoan where ID = @ID)
+    begin
+        set @ID = 'TK' + right('0000000000' + cast(next value for Seq_TaiKhoan_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into TaiKhoan (ID , IDThoiKhoaBieu , IDLop,HoTen ,NgaySinh ,SDT ,DiaChi ,GioiTinh ,CCCD ,ChucVu ,IDQuyenTruyCap ,TenTaiKhoan ,MatKhau ,ImagePath  , GhiChu)
+    select @ID, IDThoiKhoaBieu , IDLop,HoTen ,NgaySinh ,SDT ,DiaChi ,GioiTinh ,CCCD ,ChucVu ,IDQuyenTruyCap ,TenTaiKhoan ,MatKhau ,ImagePath  , GhiChu
+    from inserted;
+end
+go
+
+--BuoiHoc
+create sequence Seq_BuoiHoc_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_BuoiHoc_Insert
+on BuoiHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'BH' + right('0000000000' + cast(next value for Seq_BuoiHoc_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from BuoiHoc where ID = @ID)
+    begin
+        set @ID = 'BH' + right('0000000000' + cast(next value for Seq_BuoiHoc_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into BuoiHoc (ID, NgayDienRa, NgayKetThuc, SoTiet, Phong, GhiChu)
+    select @ID, NgayDienRa, NgayKetThuc, SoTiet, Phong, GhiChu
+    from inserted;
+end
+go
+
+--BangDiem
+create sequence Seq_BangDiem_ID
+    start with 1
+    increment by 1;
+go
+
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_BangDiem_Insert
+on BangDiem
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'BD' + right('0000000000' + cast(next value for Seq_BangDiem_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from BangDiem where ID = @ID)
+    begin
+        set @ID = 'BD' + right('0000000000' + cast(next value for Seq_BangDiem_ID as varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into BangDiem (ID , IDSinhVien  , IDMonHoc  ,DiemGiuaKy ,DiemCuoiKy,DiemTongKet   , GhiChu)
+    select @ID , IDSinhVien  , IDMonHoc  ,DiemGiuaKy ,DiemCuoiKy,DiemTongKet   , GhiChu
+    from inserted;
+end
+go
+
+--NhomMonHoc
+create sequence Seq_NhomMonHoc_ID
+    start with 1
+    increment by 1;
+go
+
+
+create trigger tr_NhomMonHoc_Insert
+on NhomMonHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'NMH' + right('0000000000' + cast(next value for Seq_NhomMonHoc_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from NhomMonHoc where ID = @ID)
+    begin
+        set @ID = 'NMH' + right('0000000000' + cast(next value for Seq_NhomMonHoc_ID as varchar(10)), 10);
+    end;
+
+
+    insert into NhomMonHoc (ID , IDGiangVien   , IDMonHoc  ,SoLuong , GhiChu)
+    select @ID , IDGiangVien   , IDMonHoc  ,SoLuong , GhiChu
+    from inserted;
+end
+go
+
+--NhomMonHoc_SinhVien 
+create sequence Seq_NhomMonHoc_SinhVien_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_NhomMonHoc_SinhVien_Insert
+on NhomMonHoc_SinhVien 
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'NMH_SV' + right('0000000000' + cast(next value for Seq_NhomMonHoc_SinhVien_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from NhomMonHoc_SinhVien where ID = @ID)
+    begin
+        set @ID = 'NMH_SV' + right('0000000000' + cast(next value for Seq_NhomMonHoc_SinhVien_ID as varchar(10)), 10);
+    end;
+
+
+    insert into NhomMonHoc_SinhVien(ID , IDSinhVien  ,IDNhomMonHoc ,NgayDangKy  ,GhiChu)
+    select @ID , IDSinhVien  ,IDNhomMonHoc ,NgayDangKy  ,GhiChu
+    from inserted;
+end
+go
+
+--NhomMonHoc_BuoiHoc 
+create sequence Seq_NhomMonHoc_BuoiHoc_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_NhomMonHoc_BuoiHoc_Insert
+on NhomMonHoc_BuoiHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'NMH_BH' + right('0000000000' + cast(next value for Seq_NhomMonHoc_BuoiHoc_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from NhomMonHoc_BuoiHoc where ID = @ID)
+    begin
+        set @ID = 'NMH_BH' + right('0000000000' + cast(next value for Seq_NhomMonHoc_BuoiHoc_ID as varchar(10)), 10);
+    end;
+
+
+    insert into NhomMonHoc_BuoiHoc (ID , IDNhomMonHoc    , IDBuoiHoc , GhiChu)
+    select @ID , IDNhomMonHoc    , IDBuoiHoc , GhiChu
+    from inserted;
+end
+go
+
+--DiemRenLuyen
+create sequence Seq_DiemRenLuyen_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_DiemRenLuyen_Insert
+on DiemRenLuyen
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'DRL' + right('0000000000' + cast(next value for Seq_DiemRenLuyen_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from DiemRenLuyen where ID = @ID)
+    begin
+        set @ID = 'DRL' + right('0000000000' + cast(next value for Seq_DiemRenLuyen_ID as varchar(10)), 10);
+    end;
+
+
+    insert into DiemRenLuyen (ID, IDSinhVien, IDHocKy, IDNamHoc, TongDiem, GhiChu)
+    select @ID, IDSinhVien, IDHocKy, IDNamHoc, TongDiem, GhiChu
+    from inserted;
+end
+go
+
+--ThoiKhoaBieu
+create sequence Seq_ThoiKhoaBieu_ID
+    start with 1
+    increment by 1;
+go
+
+
+create trigger tr_ThoiKhoaBieu_Insert
+on ThoiKhoaBieu
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'TKB' + right('0000000000' + cast(next value for Seq_ThoiKhoaBieu_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from ThoiKhoaBieu where ID = @ID)
+    begin
+        set @ID = 'TKB' + right('0000000000' + cast(next value for Seq_ThoiKhoaBieu_ID as varchar(10)), 10);
+    end;
+
+
+    insert into ThoiKhoaBieu (ID , IDTaiKhoan, GhiChu)
+    select @ID , IDTaiKhoan, GhiChu
+    from inserted;
+end
+go
+
+--ThoiKhoaBieu_BuoiHoc
+create sequence Seq_ThoiKhoaBieu_BuoiHoc_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_ThoiKhoaBieu_BuoiHoc_Insert
+on ThoiKhoaBieu_BuoiHoc
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'TKB_BH' + right('0000000000' + cast(next value for Seq_ThoiKhoaBieu_BuoiHoc_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from ThoiKhoaBieu_BuoiHoc where ID = @ID)
+    begin
+        set @ID = 'TKB_BH' + right('0000000000' + cast(next value for Seq_ThoiKhoaBieu_BuoiHoc_ID as varchar(10)), 10);
+    end;
+
+
+    insert into ThoiKhoaBieu_BuoiHoc (ID , IDThoiKhoaBieu ,IDBuoiHoc ,NgayThu , GhiChu)
+    select @ID , IDThoiKhoaBieu ,IDBuoiHoc ,NgayThu , GhiChu
+    from inserted;
+end
+go
+
+-- LoaiThongBao
+create sequence Seq_LoaiThongBao_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_LoaiThongBao_Insert
+on LoaiThongBao
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'LTB' + right('0000000000' + cast(next value for Seq_LoaiThongBao_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from ThongBao where ID = @ID)
+    begin
+        set @ID = 'LTB' + right('0000000000' + cast(next value for Seq_LoaiThongBao_ID as varchar(10)), 10);
+    end;
+
+    insert into LoaiThongBao (ID , Ten  ,CapDo, GhiChu)
+    select @ID, Ten, CapDo, GhiChu
+    from inserted;
+end
+go
+
+--ThongBao
+create sequence Seq_ThongBao_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_ThongBao_Insert
+on ThongBao
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'TB' + right('0000000000' + cast(next value for Seq_ThongBao_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from ThongBao where ID = @ID)
+    begin
+        set @ID = 'TB' + right('0000000000' + cast(next value for Seq_ThongBao_ID as varchar(10)), 10);
+    end;
+
+    insert into ThongBao (ID, IDLoaiThongBao, TieuDe, NoiDung, GhiChu)
+    select @ID, IDLoaiThongBao, TieuDe, NoiDung, GhiChu
+    from inserted;
+end
+go
+
+-- ThongBao_NguoiChinhSua
+create sequence Seq_ThongBao_NguoiChinhSua_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_ThongBao_NguoiChinhSua_Insert
+on ThongBao_NguoiChinhSua
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'TB_NCS' + right('0000000000' + cast(next value for Seq_ThongBao_NguoiChinhSua_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from ThongBao_NguoiChinhSua where ID = @ID)
+    begin
+        set @ID = 'TB_NCS' + right('0000000000' + cast(next value for Seq_ThongBao_NguoiChinhSua_ID as varchar(10)), 10);
+    end;
+
+    insert into ThongBao_NguoiChinhSua (ID , IDThongBao  ,IDNguoiChinhSua, NgayChinhSua, GhiChu)
+    select @ID, IDThongBao, IDNguoiChinhSua, NgayChinhSua, GhiChu
+    from inserted;
+end
+go
+
+-- ThongBao_NguoiNhan
+create sequence Seq_ThongBao_NguoiNhan_ID
+    start with 1
+    increment by 1;
+go
+
+
+create trigger tr_ThongBao_NguoiNhan_Insert
+on ThongBao_NguoiNhan
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'TB_NN' + right('0000000000' + cast(next value for Seq_ThongBao_NguoiNhan_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from ThongBao_NguoiNhan where ID = @ID)
+    begin
+        set @ID = 'TB_NN' + right('0000000000' + cast(next value for Seq_ThongBao_NguoiNhan_ID as varchar(10)), 10);
+    end;
+
+    insert into ThongBao_NguoiNhan (ID , IDThongBao ,IDNguoiNhan, NgayNhan, GhiChu)
+    select @ID, IDThongBao, IDNguoiNhan, NgayNhan, GhiChu
+    from inserted;
+end
+go
+
+--TLBaiViet
+create sequence Seq_TLBaiViet_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_TLBaiViet_Insert
+on TLBaiViet
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+
+    select @ID = 'TLBV' + right('0000000000' + cast(next value for Seq_TLBaiViet_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from TLBaiViet where ID = @ID)
+    begin
+        set @ID = 'TLBV' + right('0000000000' + cast(next value for Seq_TLBaiViet_ID as varchar(10)), 10);
+    end;
+
+
+    insert into TLBaiViet (ID ,Ten , GhiChu)
+    select @ID ,Ten , GhiChu
+    from inserted;
+end
+go
+
+-- Create a sequence to generate numeric part of ID
+create sequence Seq_BaiViet_ID
+    start with 1
+    increment by 1;
+go
+
+-- BaiViet
+-- Create a trigger to automatically set the ID when a new record is inserted
+create trigger tr_BaiViet_Insert
+on BaiViet
+instead of insert
+as
+begin
+    set nocount on;
+
+    declare @ID varchar(50);
+
+    -- Generate the new ID using the sequence
+    select @ID = 'BV' + right('0000000000' + cast(next value for Seq_BaiViet_ID as varchar(10)), 10)
+    from inserted;
+
+	-- Check if the generated ID already exists, and if so, increment the numeric part
+    while exists (select 1 from BaiViet where ID = @ID)
+    begin
+        SET @ID = 'BV' + RIGHT('0000000000' + CAST(NEXT VALUE FOR Seq_BaiViet_ID AS varchar(10)), 10);
+    end;
+
+    -- Insert the new record with the generated ID
+    insert into BaiViet(ID, IDTLBaiViet, TieuDe, NoiDung, GhiChu)
+    select @ID, IDTLBaiViet, TieuDe, NoiDung, GhiChu
+    from inserted;
+end
+go
+
+-- BaiViet_NguoiChinhSua
+create sequence Seq_BaiViet_NguoiChinhSua_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_BaiViet_NguoiChinhSua_Insert
+on BaiViet_NguoiChinhSua
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'BV_NCS' + right('0000000000' + cast(next value for Seq_BaiViet_NguoiChinhSua_ID as varchar(10)), 10)
+    from inserted;
+
+
+    while exists (select 1 from BaiViet_NguoiChinhSua where ID = @ID)
+    begin
+        set @ID = 'BV_NCS' + right('0000000000' + cast(next value for Seq_BaiViet_NguoiChinhSua_ID as varchar(10)), 10);
+    end;
+
+    insert into BaiViet_NguoiChinhSua(ID ,IDBaiViet ,IDNguoiChinhSua ,NgayChinhSua , GhiChu)
+    select @ID ,IDBaiViet, IDNguoiChinhSua, NgayChinhSua , GhiChu
+    from inserted;
+end
+go
+
+--BaiViet_NguoiThamGia
+create sequence Seq_BaiViet_NguoiThamGia_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_BaiViet_BaiViet_NguoiThamGia_Insert
+on BaiViet_NguoiThamGia
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'BV_NTG' + right('0000000000' + cast(next value for Seq_BaiViet_NguoiThamGia_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from BaiViet_NguoiThamGia where ID = @ID)
+    begin
+        set @ID = 'BV_NTG' + right('0000000000' + cast(next value for Seq_BaiViet_NguoiThamGia_ID as varchar(10)), 10);
+    end;
+
+    insert into BaiViet_NguoiThamGia (ID ,IDBaiViet ,IDNguoiThamGia, NgayDangKy , GhiChu)
+    select @ID, IDBaiViet, IDNguoiThamGia, NgayDangKy, GhiChu
+    from inserted;
+end
+go
+
+--NhomChat
+create sequence Seq_NhomChat_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_NhomChat_Insert
+on NhomChat
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'NC' + right('0000000000' + cast(next value for Seq_NhomChat_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from NhomChat where ID = @ID)
+    begin
+        set @ID = 'NC' + right('0000000000' + cast(next value for Seq_NhomChat_ID as varchar(10)), 10);
+    end;
+
+    insert into NhomChat (ID ,Ten ,NgayTao, GhiChu)
+    select @ID ,Ten ,NgayTao, GhiChu
+    from inserted;
+end
+go
+
+-- NhomChat_NguoiThamGia
+create sequence Seq_NhomChat_NguoiThamGia_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_NhomChat_NguoiThamGia_Insert
+on NhomChat_NguoiThamGia
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'NC_NTG' + right('0000000000' + cast(next value for Seq_NhomChat_NguoiThamGia_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from NhomChat_NguoiThamGia where ID = @ID)
+    begin
+        set @ID = 'NC_NTG' + right('0000000000' + cast(next value for Seq_NhomChat_NguoiThamGia_ID as varchar(10)), 10);
+    end;
+
+    insert into NhomChat_NguoiThamGia (ID, IDNhomChat, IDNguoiThamGia, NgayThamGia  , GhiChu)
+    select @ID ,IDNhomChat, IDNguoiThamGia, NgayThamGia , GhiChu
+    from inserted;
+end
+go
+
+--TinNhan
+create sequence Seq_TinNhan_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_TinNhan_Insert
+on TinNhan
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'TN' + right('0000000000' + cast(next value for Seq_TinNhan_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from TinNhan where ID = @ID)
+    begin
+        set @ID = 'TN' + right('0000000000' + cast(next value for Seq_TinNhan_ID as varchar(10)), 10);
+    end;
+
+    insert into TinNhan (ID ,IDTaiKhoan ,NoiDung ,NgayGui , GhiChu)
+    select @ID, IDTaiKhoan, NoiDung, NgayGui, GhiChu
+    from inserted;
+end
+go
+
+--TinNhan_GuiDen
+
+create sequence Seq_TinNhan_GuiDen_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_TinNhan_GuiDen_Insert
+on TinNhan_GuiDen
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'TN_GD' + right('0000000000' + cast(next value for Seq_TinNhan_GuiDen_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from TinNhan_GuiDen where ID = @ID)
+    begin
+        set @ID = 'TN_GD' + right('0000000000' + cast(next value for Seq_TinNhan_GuiDen_ID as varchar(10)), 10);
+    end;
+
+    insert into TinNhan_GuiDen (ID ,IDTinNhan ,IDNguoiNhan ,IDNhomNhan ,DaXem , GhiChu)
+    select @ID ,IDTinNhan ,IDNguoiNhan ,IDNhomNhan ,DaXem , GhiChu
+    from inserted;
+end
+go
+
+--ChuDeCauHoi
+create sequence Seq_ChuDeCauHoi_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_ChuDeCauHoi_Insert
+on ChuDeCauHoi
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CDCH' + right('0000000000' + cast(next value for Seq_ChuDeCauHoi_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from ChuDeCauHoi where ID = @ID)
+    begin
+        set @ID = 'CDCH' + right('0000000000' + cast(next value for Seq_ChuDeCauHoi_ID as varchar(10)), 10);
+    end;
+
+    insert into ChuDeCauHoi (ID ,Ten , GhiChu)
+    select @ID ,Ten , GhiChu
+    from inserted;
+end
+go
+
+--CauHoi
+create sequence Seq_CauHoi_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_CauHoi_Insert
+on CauHoi
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CH' + right('0000000000' + cast(next value for Seq_CauHoi_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from CauHoi where ID = @ID)
+    begin
+        set @ID = 'CH' + right('0000000000' + cast(next value for Seq_CauHoi_ID as varchar(10)), 10);
+    end;
+
+    insert into CauHoi (ID, IDNguoiGui, TieuDe, NoiDung, NgayGui, DuocDuyet, GhiChu)
+    select @ID, IDNguoiGui, TieuDe, NoiDung, NgayGui, DuocDuyet, GhiChu
+    from inserted;
+end
+go
+
+--CauHoi_ChuDeCauHoi
+create sequence Seq_CauHoi_ChuDeCauHoi_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_CauHoi_ChuDeCauHoi_Insert
+on CauHoi_ChuDeCauHoi
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CH_CDCH' + right('0000000000' + cast(next value for Seq_CauHoi_ChuDeCauHoi_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from CauHoi_ChuDeCauHoi where ID = @ID)
+    begin
+        set @ID = 'CH_CDCH' + right('0000000000' + cast(next value for Seq_CauHoi_ChuDeCauHoi_ID as varchar(10)), 10);
+    end;
+
+    insert into CauHoi_ChuDeCauHoi (ID ,IDCauHoi ,IDChuDeCauHoi, GhiChu)
+    select @ID ,IDCauHoi ,IDChuDeCauHoi, GhiChu
+    from inserted;
+end
+go
+
+--CauHoi_NguoiTraLoi
+create sequence Seq_CauHoi_NguoiTraLoi_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_CauHoi_NguoiTraLoi_Insert
+on CauHoi_NguoiTraLoi
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CH_NTL' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiTraLoi_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from CauHoi_NguoiTraLoi where ID = @ID)
+    begin
+        set @ID = 'CH_NTL' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiTraLoi_ID as varchar(10)), 10);
+    end;
+
+    insert into CauHoi_NguoiTraLoi (ID ,IDCauHoi ,IDNguoiTraLoi ,NoiDung ,NgayTraLoi , GhiChu)
+    select @ID ,IDCauHoi ,IDNguoiTraLoi ,NoiDung ,NgayTraLoi , GhiChu
+    from inserted;
+end
+go
+
+--CauHoi_NguoiTraLoi_NguoiTraLoi
+create sequence Seq_CauHoi_NguoiTraLoi_NguoiTraLoi_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_CauHoi_NguoiTraLoi_NguoiTraLoi_Insert
+on CauHoi_NguoiTraLoi_NguoiTraLoi
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CH_NTL_NTL' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiTraLoi_NguoiTraLoi_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from CauHoi_NguoiTraLoi_NguoiTraLoi where ID = @ID)
+    begin
+        set @ID = 'CH_NTL' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiTraLoi_NguoiTraLoi_ID as varchar(10)), 10);
+    end;
+
+    insert into CauHoi_NguoiTraLoi_NguoiTraLoi (ID ,IDCauHoi_NguoiTraLoi ,IDNguoiTraLoi ,NoiDung ,NgayTraLoi , GhiChu)
+    select @ID, IDCauHoi_NguoiTraLoi, IDNguoiTraLoi, NoiDung, NgayTraLoi, GhiChu
+    from inserted;
+end
+go
+
+--CauHoi_NguoiDanhGia
+create sequence Seq_CauHoi_NguoiDanhGia_ID
+    start with 1
+    increment by 1;
+go
+
+create trigger tr_CauHoi_NguoiDanhGia_Insert
+on CauHoi_NguoiDanhGia
+instead of insert
+as
+begin
+    set nocount on;
+    declare @ID varchar(50);
+
+    select @ID = 'CH_CDCH' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiDanhGia_ID as varchar(10)), 10)
+    from inserted;
+
+    while exists (select 1 from CauHoi_NguoiDanhGia where ID = @ID)
+    begin
+        set @ID = 'CH_CDCH' + right('0000000000' + cast(next value for Seq_CauHoi_NguoiDanhGia_ID as varchar(10)), 10);
+    end;
+
+    insert into CauHoi_NguoiDanhGia (ID ,IDCauHoi ,IDNguoiDanhGia,HuuIch ,NgayDanhGia , GhiChu)
+    select @ID ,IDCauHoi ,IDNguoiDanhGia,HuuIch ,NgayDanhGia , GhiChu
+    from inserted;
+end
+go
+

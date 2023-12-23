@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="~/Areas/admin/assets/css/bootstrap/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/Areas/admin/content/css/pagedlist.css" />
+
+    <link rel="stylesheet" href="~/Areas/admin/assets/css/sass.css" />
+    <link rel="stylesheet" href="~/Areas/admin/assets/css/layets.css" />
+    <link rel="stylesheet" href="~/Areas/admin/assets/css/index/style.css" />
+    <link rel="stylesheet" href="~/Areas/admin/assets/css/responsive.css" />
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    @Styles.Render("~/Areas/Admin/Content/css")
+    @Scripts.Render("~/Areas/Admin/Scripts/js")
+
+    @*--------tinymce------------*@
+    <script src="https://cdn.tiny.cloud/1/alcemokedjw8w95a2aof9yiyqhiyumeewfcsazjcd80d0j9h/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>tinymce.init({ selector: 'textarea.mc-tinymce' });</script>
+
+    <link rel="stylesheet" href="~/Areas/Admin//Scripts/chart.js/Chart.min.css" />
+</head>
+
+<body>
+
+    <div class="main-wrapper">
+        @*--------NAVBAR--------*@
+        @Html.Action("NavPartial", "TDMUAdmin")
+        @*-------NAVBAR END-------*@
+
+        @*------------SIDEBAR START------------*@
+
+        @Html.Action("SideBarPartial", "TDMUAdmin")
+
+        @*------------SIDEBAR END------------*@
+
+        @*-------------CONTENT START--------------*@
+
+        @RenderBody()
+
+        @*-------------CONTENT END----------------*@
+
+    </div>
+
+    <footer class="container well">
+        @Html.Action("FooterPartial", "TDMUAdmin")
+    </footer>
+
+    <script src="~/Areas/Admin/Assets/js/jquery.min.js"></script>
+    <script src="~/Areas/Admin/Assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Areas/Admin/Assets/js/main.js"></script>
+
+    <script src="~/Areas/Admin/Scripts/chart.js/Chart.min.js"></script>
+</body>
+</html>

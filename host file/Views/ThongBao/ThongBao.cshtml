@@ -1,0 +1,58 @@
+﻿@model IEnumerable<TDMUAdmin.Models.ThongBao>
+
+@{
+    ViewBag.Title = "ThongBao";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section>
+    <div class="container">
+        <h1 class="editor-h1">THÔNG BÁO</h1>
+        <div class="articles">
+            @foreach (var tt in Model)
+            {
+                <a href="@Url.Action("ChiTiet", "ThongBao", new { id = tt.ID })" class="card">
+                    <article>
+                        <p class="entertainment-category">News</p>
+                        <h1>@tt.TieuDe</h1>
+                        <p>
+                            @tt.NoiDung
+                        </p>
+                    </article>
+                </a>
+
+            }
+
+
+        </div>
+    </div>
+
+
+
+</section>
+
+<style>
+
+    .editor-h1 {
+        font-size: 1.6rem;
+        margin: 1rem 0rem;
+        letter-spacing: 1px;
+    }
+
+    .articles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1rem;
+    }
+
+    .card {
+        background-color: white;
+        padding: 1rem;
+        text-decoration: none;
+        color: black;
+    }
+
+        .card:hover {
+            box-shadow: 3px 5px 10px rgb(199, 199, 199);
+        }
+</style>

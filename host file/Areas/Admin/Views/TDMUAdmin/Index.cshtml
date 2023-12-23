@@ -1,0 +1,416 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{ 
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+<div class="content-wrapper">
+    <section>
+        <div class="row">
+            <div class="col-lg m-4">
+                <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+            </div>
+        </div>
+    </section>
+</div>
+}
+else
+{
+<div class="content-wrapper">
+
+    @*===================================================*@
+
+    <section>
+        <div class="sm-chart-sec my-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                        <div class="revinue revinue-one_hybrid" id="create-article">
+                            <div class="revinue-heading">
+                                <div class="w-title">
+                                    <div class="w-icon">
+                                        <span class="fas fa-users"></span>
+                                    </div>
+                                    <div class="sm-chart-text">
+                                        <p class="w-value">Bài viết</p>
+                                        <h5>Tạo bài viết</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="revinue-content">
+                                <div id="hybrid_followers"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                        <div class="revinue page-one_hybrid" id="create-notify">
+                            <div class="revinue-heading">
+                                <div class="w-title">
+                                    <div class="sm-chart-text">
+                                        <p class="w-value">Thông báo</p>
+                                        <h5>Gửi thông báo</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="revinue-content">
+                                <div id="hybrid_followers1"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                        <div class="revinue bounce-one_hybrid" id="manage-class">
+                            <div class="revinue-heading">
+                                <div class="w-title">
+                                    <div class="sm-chart-text">
+                                        <p class="w-value">Sinh viên</p>
+                                        <h5>Quản lý lớp học</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="revinue-content">
+                                <div id="hybrid_followers3"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 col-sm-6 my-2">
+                        <div class="revinue rv-status-one_hybrid">
+                            <div class="revinue-heading">
+                                <div class="w-title">
+                                    <div class="sm-chart-text">
+                                        <p class="w-value">Giảng viên</p>
+                                        <h5>Quản lý giảng viên</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="revinue-content">
+                                <div id="rv_status_chart4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="dashboard-top-sec">
+        <div class="container-fluid">
+
+            @*=============Row 1=============*@
+            <div class="row mb-3">
+                <div class="col-lg-8">
+                    <div class="bg-white top-chart-earn">
+                        <div class="row">
+                            <div class="col-sm-4 my-2 pe-0">
+                                <div class="last-month">
+                                    <h5>Số lượng sinh viên</h5>
+                                    <p>Số lượng sinh viên hiện tại</p>
+                                    <h1 class="text-primary text-center">20</h1>
+                                    <a href="#" class="di-btn purple-gradient">Last Month Summary</a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8 my-2 ps-0">
+                                <div class="classic-tabs">
+                                    @*----------Nav Tabs-------------*@
+                                    <div class="tabs-wrapper">
+                                        <ul class="nav nav-pills chart-header-tab mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <a href="#" class="nav-link char-nav active" id="pills-week-tab" data-bs-toggle="pill" data-bs-target="#pills-week" type="button" role="tab" aria-controls="pills-week" aria-selected="true">Năm 2022</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a href="#" class="nav-link char-nav" id="pills-month-tab" data-bs-toggle="pill" data-bs-target="#pills-month" type="button" role="tab" aria-controls="pills-month" aria-selected="true">Năm 2023</a>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <a href="#" class="nav-link char-nav" id="pills-year-tab" data-bs-toggle="pill" data-bs-target="#pills-year" type="button" role="tab" aria-controls="pills-year" aria-selected="true">Năm 2024</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade show active" id="pills-week" role="tabpanel" aria-labelledby="pills-week-tab">
+                                                <div class="widget-content">
+                                                    <div id="weekly"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-month" role="tabpanel" aria-labelledby="pills-month-tab">
+                                                <div class="widget-content">
+                                                    <div id="monthly"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-year" role="tabpanel" aria-labelledby="pills-year-tab">
+                                                <div class="widget-content">
+                                                    <div id="yearly"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="card-body">
+                                        <div class="chart">
+                                            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="wre-sec">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
+                                    <div class="earn-view">
+                                        <span class="fas fa-crown earn-icon wallet"></span>
+
+                                        <div class="earn-view-text">
+                                            <p class="name-text">
+                                                Năm nhất
+                                            </p>
+                                            <h6 class="balance-text">
+                                                7
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
+                                    <div class="earn-view">
+                                        <span class="fas fa-heart earn-icon referral"></span>
+
+                                        <div class="earn-view-text">
+                                            <p class="name-text">
+                                                Năm 2
+                                            </p>
+                                            <h6 class="balance-text">
+                                                5
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
+                                    <div class="earn-view">
+                                        <span class="fab fa-salesforce earn-icon sales"></span>
+
+                                        <div class="earn-view-text">
+                                            <p class="name-text">
+                                                Năm ba
+                                            </p>
+                                            <h6 class="balance-text">
+                                                6
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-3 col-6 my-1 bdr-cls">
+                                    <div class="earn-view">
+                                        <span class="fas fa-chart-line earn-icon earning"></span>
+
+                                        <div class="earn-view-text">
+                                            <p class="name-text">
+                                                Năm tư
+                                            </p>
+                                            <h6 class="balance-text">
+                                                2
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- TO DO List -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="ion ion-clipboard mr-1"></i>
+                                Việc cần làm
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <ul class="todo-list" data-widget="todo-list">
+                                <li>
+                                    <!-- drag handle -->
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                    <!-- checkbox -->
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo1" id="todoCheck1">
+                                        <label for="todoCheck1"></label>
+                                    </div>
+                                    <!-- todo text -->
+                                    <span class="text">Giải đáp thắc mắc cho sinh viên</span>
+                                    <!-- Emphasis label -->
+                                    <small class="badge badge-danger"><i class="far fa-clock"></i> 2 mins</small>
+                                    <!-- General tools such as edit or delete-->
+                                </li>
+                                <li>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo2" id="todoCheck2" checked>
+                                        <label for="todoCheck2"></label>
+                                    </div>
+                                    <span class="text">Gửi thông báo nhắc nợ học phí</span>
+                                    <small class="badge badge-info"><i class="far fa-clock"></i> 4 hours</small>
+
+                                </li>
+                                <li>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo3" id="todoCheck3">
+                                        <label for="todoCheck3"></label>
+                                    </div>
+                                    <span class="text">Đón con</span>
+                                    <small class="badge badge-warning"><i class="far fa-clock"></i> 1 day</small>
+                                </li>
+                                <li>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo4" id="todoCheck4">
+                                        <label for="todoCheck4"></label>
+                                    </div>
+                                    <span class="text">Soạn đề thi HK1</span>
+                                    <small class="badge badge-success"><i class="far fa-clock"></i> 3 days</small>
+                                </li>
+                                <li>
+                                    <div class="tools">
+                                        <i class="fas fa-edit"></i>
+                                        <i class="fas fa-trash-o"></i>
+                                    </div>
+                                    <div class="icheck-primary d-inline ml-2">
+                                        <input type="checkbox" value="" name="todo5" id="todoCheck5">
+                                        <label for="todoCheck5"></label>
+                                    </div>
+                                    <span class="text">Kiểm tra và trả lời email</span>
+                                    <small class="badge badge-primary"><i class="far fa-clock"></i> 1 week</small>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer clearfix">
+                            <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Tạo mới</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </section>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#create-article').on('click', function () {
+            window.location.href = '@Url.Action("Create", "Article")';
+        });
+    });
+
+    $(document).ready(function () {
+        $('#create-notify').on('click', function () {
+            window.location.href = '@Url.Action("Create", "Notify")';
+        });
+    });
+
+    $(document).ready(function () {
+        $('#manage-class').on('click', function () {
+            window.location.href = '@Url.Action("Index", "Class")';
+        });
+    });
+
+    $(function () {
+        //--------------
+        //- AREA CHART -
+        //--------------
+
+        // Get context with jQuery - using jQuery's .get() method.
+        var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+
+        var areaChartData = {
+            labels: ['Năm 1', 'Năm 2', 'Năm 3', 'Năm 4'],
+            datasets: [
+                {
+                    label: 'Digital Goods',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+                    borderColor: 'rgba(60,141,188,0.8)',
+                    pointRadius: false,
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data: [7, 5, 6, 2]
+                },
+
+            ]
+        }
+
+        var areaChartOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    gridLines: {
+                        display: false,
+                    }
+                }],
+                yAxes: [{
+                    gridLines: {
+                        display: false,
+                    }
+                }]
+            }
+        }
+
+        // This will get the first returned node in the jQuery collection.
+        new Chart(areaChartCanvas, {
+            type: 'line',
+            data: areaChartData,
+            options: areaChartOptions
+        })
+    });
+</script>
+}
+
+

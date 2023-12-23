@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewBag.Title = "timetable";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div>
+    <br />
+    <h2>THỜI GIAN BIỂU</h2>
+
+
+    <div class="mybuttons">
+        <input class="addTime" id="startTime" type="time">
+        <input class="addTime" id="endTime" type="time">
+        <button id="addColumn">Thêm mới thời gian</button>
+        <button id="addRow">Thêm mới ngày</button>
+        <select id="addAgenda">
+            <option>Thêm nội dung</option>
+        </select>
+    </div>
+
+    <p><em>Thêm nội dung vào chỗ</em> ❤︎</p>
+
+    <table class="timetable">
+        <thead id="headerOfTable">
+            <tr id="headerRow">
+                <th>Ngày / Giờ </th>
+            </tr>
+        </thead>
+        <tbody id="bodyOfTable">
+        </tbody>
+    </table>
+
+</div>
+<button style="border-radius: 10px; font-family: inherit; font-size: 21px; width: 20%" type="button" value="">SAVE</button>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    let rows = 0;
+
+    $(document).ready(function () {
+        $('#addColumn').on('click', function () {
+            if ($("#startTime").val() == "" || $("#endTime").val() == "") {
+                alert("You must enter the respective time slots")
+            }
+            else {
+                var newColumnHeader = $("#startTime").val() + " - " + $("#endTime").val();
+                if (newColumnHeader !== null) {
+                    var newColumn = document.createElement("th");
+                    newColumn.innerText = newColumnHeader;
+                    $("#headerRow").append(newColumn);
+
+                    $("#startTime").val("")
+                    $("#endTime").val("")
+                }
+            }
+        })
+
+        $('#addRow').on('click', function () {
+
+            var numberOfColumns = $('table').find('tr').eq(0).find('th, td').length;
+            //         $('table') selects all table elements on the page using jQuery.
+            // find('tr') finds all the table row elements (<tr>) within each table.
+            // .eq(0) selects the first row of the table.
+            // find('th, td') finds all the table header (<th>) and data (<td>) cells within the first row.
+            // .length returns the number of header and data cells found, which represents the number of columns in the first row of the table.
+            var newRowHeader = prompt("Enter new row:");
+
+            if (newRowHeader !== null) {
+
+                var newRow = $("<tr>").text(newRowHeader).attr('id', 'r' + rows + 'c' + 0);
+
+                for (let i = 1; i < numberOfColumns; i++) {
+                    var newData = $('<td>').attr('id', 'Row' + rows + 'Column' + i);
+                    newData.text("❤︎")
+
+                    console.log(newData)
+
+                    newRow.append(newData);
+                    console.log(newData)
+                    console.log(newRow)
+
+                    var newOption = document.createElement("option")
+                    newOption.text = "Row " + rows + ", Column " + i;
+                    console.log(newOption)
+                    $('#addAgenda').append("<option>" + "Row" + rows + "Column" + i + "</option>");
+                }
+
+                rows++;
+                $("#bodyOfTable").append(newRow);
+            }
+        })
+
+        $('#addAgenda').on('change', function () {
+            var cell = $("#" + $('#addAgenda').val());
+            if (cell.attr('id').endsWith('Column0')) { //Checking if id ends with specific thing, do not change
+                alert("You cannot change row headers <3")
+            } else {
+                var data = prompt("Enter your agenda")
+                cell.text(data)
+                var buttonID = cell.attr('id')
+                var button = $('<button>').attr('id', 'B' + buttonID).attr('class', "delete").text("Delete")
+                $(cell).append(button)
+
+                $("#addAgenda option:contains('" + cell.attr('id') + "')").remove();
+            }
+        })
+
+        $(document).on('click', '.delete', function () {
+            var cellID = $(this).attr('id').slice(1)
+            console.log(cellID)
+            $("#" + cellID).text("❤︎")
+
+            var newOption = document.createElement("option")
+            newOption.text = $(this).attr('id').slice(1);
+            $('#addAgenda').append(newOption);
+
+        })
+    })
+</script>
+
+<style>
+
+    ul {
+        margin: 0;
+        padding: 0;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    li, a {
+        text-decoration: none; /*Remove the anchor tag decorations*/
+
+        text-align: center;
+        padding-left: 10px;
+        margin: 5px 10px 0 0;
+        display: block;
+        float: right;
+    }
+
+        li a:hover {
+            color: black; /*Turn navigation links to white*/
+            text-decoration: underline;
+            font-weight: bold;
+            /* color: #42b4d6; */
+        }
+
+
+
+
+
+    h3 {
+        color: black;
+        margin-top: 10px;
+        text-align: center;
+        display: block;
+        font-family: 'Roboto Slab', serif;
+        font-size: 36px;
+        font-weight: bold;
+    }
+
+
+
+    table {
+        width: 100%;
+        margin-top: 15%;
+        align-items: center;
+    }
+
+    .headings-color {
+        color: black;
+        margin-bottom: 5px;
+    }
+
+    th {
+        padding: 1px;
+        text-align: center;
+    }
+
+    td {
+        padding: 1px;
+        text-align: center;
+    }
+
+    p {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 18px;
+        line-height: 32px;
+        color: black;
+    }
+
+    /*Timetable*/
+
+    .timetable {
+        border-collapse: collapse;
+        width: 80%;
+        text-align: center;
+        margin: 15px auto;
+    }
+
+    tr, th, td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+
+    td {
+        padding: 1px;
+        text-align: center;
+    }
+
+    .mybuttons {
+        text-align: center;
+    }
+
+    #addColumn, #addRow, #addAgenda, .addTime {
+        color: black;
+        font-size: 16px;
+        border: none;
+        margin: 10px 10px;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        align-self: center;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    /*Delete Icon*/
+    .delete {
+        display: none;
+        float: right;
+        background-color: lightblue;
+        border: none;
+        color: var(--overlays);
+    }
+
+    td:hover .delete {
+        display: inline-block;
+    }
+
+    .delete:hover {
+        color: #375d72;
+    }
+
+    body {
+        text-align: center;
+    }
+
+</style>

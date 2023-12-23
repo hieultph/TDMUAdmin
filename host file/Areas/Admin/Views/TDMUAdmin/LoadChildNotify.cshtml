@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyNotify>
+
+@helper Truncate (string s, int length) 
+{ 
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+
+<a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
+    <img src="~/Areas/Admin/Assets/img/bell.png" class="icon" />
+    <p class="count purple-gradient">@Model.Count()</p>
+</a>
+
+<div class="dropdown-menu">
+    <div class="dp-main-menu">
+        @foreach (var item in Model)
+        {
+            if (item.CapDo == 1)
+            {
+                <a href='@Url.Action("Details", "Notify", new { maTB = item.ID })' class="dropdown-item message-item">
+                    <img src="~/Areas/Admin/Assets/img/server.png" alt="" class="user-note" />
+                    <div class="note-info-desmis">
+                        <div class="user-notify-info">
+                            <p class="note-name">@Html.Raw(Truncate(item.TieuDe, 20))</p>
+                            <p class="note-time">@Html.Raw(Truncate(item.NoiDung, 20))</p>
+                        </div>
+                        <p class="status-link"><span class="fas fa-times"></span></p>
+                    </div>
+                </a>
+            }
+            else if (item.CapDo == 2)
+            {
+                <a href='@Url.Action("Details", "Notify", new { maTB = item.ID })' class="dropdown-item message-item">
+                    <img src="~/Areas/Admin/Assets/img/error.png" alt="" class="user-note" />
+                    <div class="note-info-desmis">
+                        <div class="user-notify-info">
+                            <p class="note-name">@Html.Raw(Truncate(item.TieuDe, 20))</p>
+                            <p class="note-time">@Html.Raw(Truncate(item.NoiDung, 20))</p>
+                        </div>
+                        <p class="status-link"><span class="fas fa-times"></span></p>
+                    </div>
+                </a>
+            }
+            else if (item.CapDo == 3)
+            {
+                <a href='@Url.Action("Details", "Notify", new { maTB = item.ID })' class="dropdown-item message-item">
+                    <img src="~/Areas/Admin/Assets/img/notes.png" alt="" class="user-note" />
+                    <div class="note-info-desmis">
+                        <div class="user-notify-info">
+                            <p class="note-name">@Html.Raw(Truncate(item.TieuDe, 20))</p>
+                            <p class="note-time">@Html.Raw(Truncate(item.NoiDung, 20))</p>
+                        </div>
+                        <p class="status-link"><span class="fas fa-times"></span></p>
+                    </div>
+                </a>
+            }
+            else if (item.CapDo == 4)
+            {
+                <a href='@Url.Action("Details", "Notify", new { maTB = item.ID })' class="dropdown-item message-item">
+                    <img src="~/Areas/Admin/Assets/img/heart.png" alt="" class="user-note" />
+                    <div class="note-info-desmis">
+                        <div class="user-notify-info">
+                            <p class="note-name">@Html.Raw(Truncate(item.TieuDe, 20))</p>
+                            <p class="note-time">@Html.Raw(Truncate(item.NoiDung, 20))</p>
+                        </div>
+                        <p class="status-link"><span class="fas fa-times"></span></p>
+                    </div>
+                </a>
+            }
+            else if (item.CapDo == 5)
+            {
+                <a href='@Url.Action("Details", "Notify", new { maTB = item.ID })' class="dropdown-item message-item">
+                    <img src="~/Areas/Admin/Assets/img/robot.png" alt="" class="user-note" />
+                    <div class="note-info-desmis">
+                        <div class="user-notify-info">
+                            <p class="note-name">@Html.Raw(Truncate(item.TieuDe, 20))</p>
+                            <p class="note-time">@Html.Raw(Truncate(item.NoiDung, 20))</p>
+                        </div>
+                        <p class="status-link"><span class="fas fa-times"></span></p>
+                    </div>
+                </a>
+            }
+        }
+    </div>
+</div>

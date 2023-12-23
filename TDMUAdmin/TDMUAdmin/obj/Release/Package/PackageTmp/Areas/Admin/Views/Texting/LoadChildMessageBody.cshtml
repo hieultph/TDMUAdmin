@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<TDMUAdmin.Models.MyMessage>
+@using TDMUAdmin.Models
+
+@{
+    TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+}
+
+
+@foreach (var mess in Model)
+{
+    if (mess.IDNguoiGui == tk.ID)
+    {
+        <div class="message my-message">
+            <img alt="" class="img-circle medium-image" src="~/Areas/Admin/Assets/img/user-image/@mess.ImagePath">
+
+            <div class="message-body">
+                <div class="message-body-inner">
+                    <div class="message-info">
+                        <h4> @mess.TenNG </h4>
+                        <h5> <i class="fa fa-clock-o"></i> @mess.NgayGui.Value.ToString("hh:mm tt") </h5>
+                    </div>
+                    <hr>
+                    <div class="message-text">
+                        @mess.NoiDung
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+    }
+    else
+    {
+        <div class="message info">
+            <img alt="" class="img-circle medium-image" src="~/Areas/Admin/Assets/img/user-image/@mess.ImagePath">
+
+            <div class="message-body">
+                <div class="message-info">
+                    <h4> @mess.TenNG </h4>
+                    <h5> <i class="fa fa-clock-o"></i> @mess.NgayGui.Value.ToString("hh:mm tt") </h5>
+                </div>
+                <hr>
+                <div class="message-text">
+                    @mess.NoiDung
+                </div>
+            </div>
+            <br>
+        </div>
+    }
+}

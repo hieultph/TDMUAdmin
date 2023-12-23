@@ -1,0 +1,236 @@
+﻿#cal .date-sticky {
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+}
+
+#cal .days-sticky {
+    position: sticky;
+    z-index: 10;
+}
+
+@media (min-width: 768px) {
+    #cal .days-sticky {
+        position: sticky;
+        z-index: 10;
+        top: 56px;
+    }
+}
+
+#cal {
+    line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+    #cal {
+        position: relative;
+        padding: 0;
+        left: 4px;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    #cal .seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
+        width: 100%;
+        max-width: 14.285714285714285714285714285714% !important;
+        flex: none !important;
+    }
+}
+
+@media (min-width: 992px) {
+    #cal .seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #cal .seven-cols .col-md-1, .seven-cols .col-sm-1, .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+    }
+}
+
+#cal .date-cont {
+    background: #1a2347;
+    height: calc(30px + 4vw);
+    margin-left: -17px;
+}
+
+@media (min-width: 768px) {
+    #cal .event-next:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 38px;
+        right: -11px;
+        background-color: inherit;
+        z-index: 2;
+        padding: 4px 8px;
+        white-space: pre;
+    }
+}
+
+@media (min-width: 768px) {
+    #cal .event-prev:before {
+        content: " ";
+        display: block;
+        position: absolute;
+        top: 38px;
+        left: -11px;
+        background-color: inherit;
+        z-index: 2;
+        padding: 4px 8px;
+        white-space: pre;
+    }
+}
+
+@media (min-width: 576px) {
+    #cal .date-cont {
+        margin-left: -15px;
+        height: 56px;
+        width: 105.8%;
+        outline: solid .5px #343A40;
+    }
+}
+
+@media (min-width: 768px) {
+    #cal .date-cont {
+        width: 103.2%;
+    }
+}
+
+@media (min-width: 992px) {
+    #cal .date-cont {
+        width: 102.3%;
+    }
+}
+
+@media (min-width: 1200px) {
+    #cal .date-cont {
+        width: 102%;
+    }
+}
+
+#cal .day-blank {
+    border: solid 1px black;
+    background: #ebebeb;
+    margin: -1px 0 0 -1px;
+    min-height: 100%;
+}
+
+#cal .date {
+    font-family: 'Roboto Condensed';
+    font-size: 22px;
+    font-weight: 700;
+    background: rgb(220,220,220);
+    padding-left: 6px;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    #cal .date {
+        font-family: 'Roboto Condensed';
+        font-size: 22px;
+        font-weight: 700;
+        background: rgb(220,220,220);
+        padding-left: 6px;
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    #cal .date {
+        margin-bottom: 3px;
+    }
+}
+
+#cal .day {
+    border: solid 1px black;
+    margin: -1px 0 0 -1px;
+    min-height: 100%;
+    padding: 0;
+}
+
+#cal .days p {
+    font-family: 'Roboto Condensed';
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0;
+    padding: 8px 0 7px 0;
+    background: rgb(88,88,88);
+}
+
+#cal .bg-events {
+    background: rgb(255,255,255);
+}
+
+@media (min-width: 768px) {
+    #cal .bg-events {
+        min-height: 135px;
+    }
+}
+
+#cal .event {
+    font-family: 'Roboto Condensed';
+    font-size: 16px;
+    margin: 5px;
+    padding: 4px 5px;
+    text-align: center;
+    overflow: visible;
+    border-radius: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+}
+
+@media (min-width: 768px) {
+    #cal .event {
+        font-size: 13px;
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px) {
+    #cal .event {
+        letter-spacing: normal;
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #cal .event {
+        font-size: 16px;
+    }
+}
+
+#cal .event-spec {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.2;
+    border-radius: 5px;
+    margin: 6px;
+    padding: 4px;
+}
+
+#year {
+    font-family: 'Roboto Condensed';
+    position: relative;
+    font-size: calc(8px + 3vw);
+    font-weight: 700;
+    width: 100%;
+    white-space: nowrap;
+    /*top: .3vw;*/
+}
+
+@media (min-width: 576px) {
+    #year {
+        font-size: 28px;
+        top: 0px;
+    }
+}
+
+#cal a {
+    text-decoration: none;
+    transition: all .3s;
+}

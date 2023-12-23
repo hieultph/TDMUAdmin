@@ -1,0 +1,353 @@
+﻿@using TDMUAdmin.Models
+@model IEnumerable<TDMUAdmin.Models.MyMessage>
+
+@helper Truncate(string s, int length)
+{
+    if (s.Length < length)
+    {
+        @s
+    }
+    else
+    {
+        @s.Substring(0, length)<text>...</text>
+    }
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="~/Areas/Admin/Assets/package/BootstrapChat/css/BootstrapChat.css" />
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+    TaiKhoan tk = (TaiKhoan)Session["TaiKhoan"];
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 5 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+
+        @*===================================================*@
+
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+
+                    @*============================= Start chat ====================================*@
+
+                    <div class="panel messages-panel">
+
+                        @*===================== Left column ======================*@
+
+                        <div class="contacts-list">
+                            <div class="inbox-categories">
+                                <div class="active"> Tất cả </div>
+                                <div> Đã xem </div>
+                                <div> Chưa xem </div>
+                            </div>
+
+                            <div id="inbox" class="contacts-outter-wrapper tab-pane active">
+                                <form class="panel-search-form info form-group has-feedback no-margin-bottom">
+                                    <input type="text" class="form-control" name="search" placeholder="Search">
+                                </form>
+                                <div class="contacts-outter">
+                                    <ul class="list-unstyled contacts">
+                                        @foreach (var mess in Model)
+                                        {
+                                            <li class="inbox-message" data-idnguoigui="@mess.IDNguoiGui">
+                                                <div class="message-count"> @mess.SoLuong </div>
+                                                <img alt="" class="img-circle medium-image" src="~/Areas/Admin/Assets/img/user-image/@mess.ImagePath">
+
+                                                <div class="vcentered info-combo">
+                                                    <p hidden class="mc-senderID">@mess.IDNguoiGui</p>
+                                                    <h3 class="no-margin-bottom name"> @mess.TenNG </h3>
+                                                    <h5> @Truncate(mess.NoiDung, 30)</h5>
+                                                </div>
+                                                <div class="contacts-add">
+                                                    <span class="message-time">@mess.NgayGui.Value.ToString("hh:mm tt")</span>
+                                                    <i class="fa fa-trash-o"></i>
+                                                    <i class="fa fa-paperclip"></i>
+                                                </div>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        @*========================= End left column ==============================*@
+
+                        <div class="tab-content">
+                            <div class="tab-pane message-body active" id="inbox-message-1">
+                                <div class="message-top">
+                                    <a class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> New Message </a>
+
+                                    <div class="new-message-wrapper">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Send message to...">
+                                            <a class="btn btn-danger close-new-message" href="#"><i class="fa fa-times"></i></a>
+                                        </div>
+
+                                        <div class="chat-footer new-message-textarea">
+                                            <textarea class="send-message-text"></textarea>
+                                            <label class="upload-file">
+                                                <input type="file" required="">
+                                                <i class="fa fa-paperclip"></i>
+                                            </label>
+                                            <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-chat">
+
+                                    @*===================== Chat body ==================*@
+                                    <div class="chat-body">
+                                        <div class="chat-body-content">
+                                            @Html.Action("LoadChildMessageBody", "Texting", new { maTK = tk.ID, maNG = "TK0000000004" })
+                                        </div>
+                                    </div>
+
+                                    <div class="chat-footer">
+                                        <textarea class="send-message-text"></textarea>
+                                        <label class="upload-file">
+                                            <input type="file" required="">
+                                            <i class="fa fa-paperclip"></i>
+                                        </label>
+                                        <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+                            <div class="tab-pane message-body" id="sent-message-1">
+                                <div class="message-top">
+                                    <a class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> New Message </a>
+
+                                    <div class="new-message-wrapper">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Send message to...">
+                                            <a class="btn btn-danger close-new-message" href="#"><i class="fa fa-times"></i></a>
+                                        </div>
+
+                                        <div class="chat-footer new-message-textarea">
+                                            <textarea class="send-message-text"></textarea>
+                                            <label class="upload-file">
+                                                <input type="file" required="">
+                                                <i class="fa fa-paperclip"></i>
+                                            </label>
+                                            <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-chat">
+                                    <div class="chat-body">
+
+                                        <div class="message my-message">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-body-inner">
+                                                    <div class="message-info">
+                                                        <h4> Dennis Novac </h4>
+                                                        <h5> <i class="fa fa-clock-o"></i> 2:05 PM </h5>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="message-text">
+                                                        Hi, I've just finished the stickers you wanted. I'll send them to you in an archive in 10 minutes.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="message success">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-info">
+                                                    <h4> David Beckham </h4>
+                                                    <h5> <i class="fa fa-clock-o"></i> 2:11 PM </h5>
+                                                </div>
+                                                <hr>
+                                                <div class="message-text">
+                                                    Hello, Dennis. Thanks. Also how's it going with our latest football website. Do you need any additional help or information?
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="message success">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-info">
+                                                    <h4> David Beckham </h4>
+                                                    <h5> <i class="fa fa-clock-o"></i> 2:24 PM </h5>
+                                                </div>
+                                                <hr>
+                                                <div class="message-text">
+                                                    I would like to take a look at it this evening, is it possible ?
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="message my-message">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-body-inner">
+                                                    <div class="message-info">
+                                                        <h4> Dennis Novac </h4>
+                                                        <h5> <i class="fa fa-clock-o"></i> 2:25 PM </h5>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="message-text">
+                                                        It's going well, no need for any other help, thanks. Sure, send me a message when you'll be ready.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="chat-footer">
+                                        <textarea class="send-message-text"></textarea>
+                                        <label class="upload-file">
+                                            <input type="file" required="">
+                                            <i class="fa fa-paperclip"></i>
+                                        </label>
+                                        <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="tab-pane message-body" id="marked-message-1">
+                                <div class="message-top">
+                                    <a class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> New Message </a>
+
+                                    <div class="new-message-wrapper">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Send message to...">
+                                            <a class="btn btn-danger close-new-message" href="#"><i class="fa fa-times"></i></a>
+                                        </div>
+
+                                        <div class="chat-footer new-message-textarea">
+                                            <textarea class="send-message-text"></textarea>
+                                            <label class="upload-file">
+                                                <input type="file" required="">
+                                                <i class="fa fa-paperclip"></i>
+                                            </label>
+                                            <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="message-chat">
+                                    <div class="chat-body">
+                                        <div class="message warning">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-info">
+                                                    <h4> Jessica Fresco </h4>
+                                                    <h5> <i class="fa fa-clock-o"></i> 1:44 PM </h5>
+                                                </div>
+                                                <hr>
+                                                <div class="message-text">
+                                                    Hello, Dennis. I wanted to let you know we reviewed your proposal and decided you'll start working together with our UI/UX team on Tuesday, January 10th, 2017. Congratulations and thank you!
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="message my-message">
+                                            <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                                            <div class="message-body">
+                                                <div class="message-body-inner">
+                                                    <div class="message-info">
+                                                        <h4> Dennis Novac </h4>
+                                                        <h5> <i class="fa fa-clock-o"></i> 1:51 PM </h5>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="message-text">
+                                                        Hello, great news. I'm sure we're going to make something amazing together!
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="chat-footer">
+                                        <textarea class="send-message-text"></textarea>
+                                        <label class="upload-file">
+                                            <input type="file" required="">
+                                            <i class="fa fa-paperclip"></i>
+                                        </label>
+                                        <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    @*============================= End chat ====================================*@
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.inbox-message').on('click', function () {
+                var IDNguoiGui = $(this).find('.mc-senderID').text();
+
+                $.ajax({
+                    url: '@Url.Action("LoadChildMessageBody", "Texting")',
+                    type: 'GET',
+                    data: { maTK: @tk.ID, maNG: IDNguoiGui },
+                    success: function (result) {
+                        $('.chat-body-content').html(result);
+                    },
+                    error: function () {
+                        console.error('Error occurred during Ajax call.');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyComment>
+
+@{
+    foreach (var item in Model)
+    {
+        <li class="comment">
+            <a class="pull-left" href="#">
+                <img class="avatar" src="~/Areas/Admin/Assets/img/user-image/@item.AnhNguoiTraLoi" alt="avatar">
+            </a>
+            <div class="comment-body">
+                <div class="comment-heading">
+                    <h4 class="user">@item.TenNguoiTraLoi</h4>
+                    <h5 class="time">@item.NgayTraLoi</h5>
+                </div>
+                <p>@item.NoiDung</p>
+            </div>
+            <ul class="comments-list">
+                @Html.Action("LoadChildComment", "Forum", new { maCH_NTL = item.ID })
+            </ul>
+        </li>
+    }
+}

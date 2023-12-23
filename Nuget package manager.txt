@@ -1,0 +1,5 @@
+Nuget package manager:
+Pagelist.Mvc
+System.Linq.Dynamic
+Paypal
+GoogleAuthentication

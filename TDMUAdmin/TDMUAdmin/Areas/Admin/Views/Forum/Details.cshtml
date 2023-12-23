@@ -1,0 +1,78 @@
+﻿@model TDMUAdmin.Models.MyQuestion
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link rel="stylesheet" href="~/Areas/Admin/Assets/package/Post/css/post.css" />
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <div class="panel panel-white post panel-shadow">
+                        <h4>Chủ đề: @Model.ChuDe</h4>
+                        <div class="post-heading">
+                            <div class="pull-left image">
+                                <img src="~/Areas/Admin/Assets/img/user-image/@Model.AnhNguoiDang" class="img-circle avatar" alt="user profile image">
+                            </div>
+                            <div class="pull-left meta">
+                                <div class="title h5">
+                                    <a href="#"><b>@Model.NguoiDang</b></a>
+                                    đã đăng một câu hỏi.
+                                </div>
+                                <h6 class="text-muted time">Đăng vào lúc: @Model.NgayDang</h6>
+                            </div>
+                        </div>
+                        <div class="post-description">
+                            <p>@Html.Raw(Model.NoiDung)</p>
+                            <div class="stats">
+                                <a href="#" class="btn btn-default stat-item">
+                                    <i class="fa fa-thumbs-up icon"></i>@Model.LuotThich
+                                </a>
+                                <a href="#" class="btn btn-default stat-item">
+                                    <i class="fa fa-thumbs-down icon"></i>@Model.LuotKhongThich
+                                </a>
+                                <a href="#" class="btn btn-default stat-item">
+                                    <i class="fa fa-share icon"></i>@Model.LuotTraLoi
+                                </a>
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            <div class="input-group">
+                                @Html.Action("CommentPartial", "Forum", new { maCH = Model.IDCauHoi })
+                            </div>
+                            <ul class="comments-list">
+                                @Html.Action("LoadComment", "Forum")
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+}
+

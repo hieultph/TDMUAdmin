@@ -1,0 +1,103 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyStudent>
+
+@{
+    ViewBag.Title = "ManageClass";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    @using (Html.BeginForm("Index", "Class", FormMethod.Get))
+                    {
+                        <h2>
+                            Khoa/Viện: @Model.First().Institute - Sĩ số: @Model.Count()
+                        </h2>
+                        <div>
+                            Giới tính:
+                            @Html.DropDownList("GenderList")
+                            Tìm theo tên sinh viên:
+                            <input type="text" name="strSearch" value="@ViewBag.Search" placeholder="Nhập tên cần tìm..." size="30" />
+                            <input type="submit" value="Tìm kiếm" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="text-center">MSSV</th>
+                                <th class="text-center">Họ tên</th>
+                                <th class="text-center">Ngày sinh</th>
+                                <th class="text-center">SDT</th>
+                                <th class="text-center">Địa chỉ</th>
+                                <th class="text-center">Giới tính</th>
+                                <th class="text-center">CCCD</th>
+                                <th class="text-center">Hình ảnh</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="text-center mssv">@item.ID</td>
+                                    <td class="text-center">@item.HoTen</td>
+                                    <td class="text-center">@item.NgaySinh</td>
+                                    <td class="text-center">@item.SDT</td>
+                                    <td class="text-center">@item.DiaChi</td>
+                                    <td class="text-center">@item.GioiTinh</td>
+                                    <td class="text-center">@item.CCCD</td>
+                                    <td class="text-center">
+                                        <img src="~/Areas/Admin/Assets/img/user-image/@item.ImagePath" class="mc-student-img" />
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div id="result-container"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        .mc-student-img {
+            width: 80px;
+        }
+    </style>
+
+    <script>
+    $(document).ready(function () {
+        $('.mssv').on('click', function () {
+            var mssv = $(this).text(); // get the text content of the clicked cell
+            var url = '@Url.Action("GradeTable", "Class")' + '?mssv=' + mssv + '&maNH=' + '@ViewBag.MaNH';
+
+            window.location.href = url;
+        });
+    });
+    </script>
+}
+

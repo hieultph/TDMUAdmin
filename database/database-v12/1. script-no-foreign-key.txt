@@ -1,0 +1,319 @@
+-- create database
+use master
+create database TDMUAppDB
+go
+
+use TDMUAppDB
+go
+
+-- create table
+
+create table Khoa
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table NhomNganh
+(
+	ID varchar(50) primary key,
+	IDKhoa varchar(50),
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table Lop
+(
+	ID varchar(50) primary key,
+	IDGiangVien varchar(50),
+	IDNhomNganh varchar(50),
+	GhiChu nvarchar(500),
+)
+
+create table HocKy
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table NamHoc
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table MonHoc
+(
+	ID varchar(50) primary key,
+	IDHocKy varchar(50),
+	IDNamHoc varchar(50),
+	Ten nvarchar(500),
+	SoTC int,
+	GhiChu nvarchar(500),
+)
+
+create table QuyenTruyCap
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	CapDo int not null default(3),
+	GhiChu nvarchar(500),
+)
+
+create table TaiKhoan
+(
+	ID varchar(50) primary key,
+	IDThoiKhoaBieu varchar(50),
+	IDLop varchar(50),
+	HoTen nvarchar(500),
+	NgaySinh datetime,
+	Email varchar(max),
+	SDT varchar(50),
+	DiaChi nvarchar(500),
+	GioiTinh nvarchar(50),
+	CCCD varchar(50),
+	ChucVu nvarchar(500),
+	IDQuyenTruyCap varchar(50) not null,
+	TenTaiKhoan nvarchar(500),
+	MatKhau varchar(max),
+	ImagePath varchar(max),
+	GhiChu nvarchar(500),
+)
+
+create table BuoiHoc
+(
+	ID varchar(50) primary key,
+	NgayDienRa datetime,
+	NgayKetThuc datetime,
+	SoTiet int,
+	Phong nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table BangDiem
+(	
+	ID varchar(50) primary key,
+	IDSinhVien varchar(50),
+	IDMonHoc varchar(50),
+	DiemGiuaKy float,
+	DiemCuoiKy float,
+	DiemTongKet float,
+	GhiChu nvarchar(500),
+)
+
+create table NhomMonHoc
+(
+	ID varchar(50) primary key,
+	IDGiangVien varchar(50),
+	IDMonHoc varchar(50),
+	SoLuong int,
+	GhiChu nvarchar(500),
+)
+
+create table NhomMonHoc_SinhVien -- DK
+(
+	ID varchar(50) primary key,
+	IDSinhVien varchar(50),
+	IDNhomMonHoc varchar(50),
+	NgayDangKy datetime,
+	GhiChu nvarchar(500),
+)
+
+create table NhomMonHoc_BuoiHoc -- CT
+(
+	ID varchar(50) primary key,
+	IDNhomMonHoc varchar(50),
+	IDBuoiHoc varchar(50),
+	GhiChu nvarchar(500),
+)
+
+create table DiemRenLuyen
+(
+	ID varchar(50) primary key,
+	IDSinhVien varchar(50),
+	IDHocKy varchar(50),
+	IDNamHoc varchar(50),
+	TongDiem int,
+	GhiChu nvarchar(500),
+)
+
+create table ThoiKhoaBieu
+(
+	ID varchar(50) primary key,
+	IDTaiKhoan varchar(50),
+	GhiChu nvarchar(500),
+)
+
+create table ThoiKhoaBieu_BuoiHoc
+(
+	ID varchar(50) primary key,
+	IDThoiKhoaBieu varchar(50),
+	IDBuoiHoc varchar(50),
+	NgayThu nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table LoaiThongBao
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	CapDo int,
+	GhiChu nvarchar(500),
+)
+
+create table ThongBao
+(
+	ID varchar(50) primary key,
+	IDLoaiThongBao varchar(50),
+	TieuDe nvarchar(500),
+	NoiDung nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table ThongBao_NguoiNhan
+(
+	ID varchar(50) primary key,
+	IDThongBao varchar(50),
+	IDNguoiNhan varchar(50),
+	NgayNhan datetime,
+	GhiChu nvarchar(500),
+)
+
+create table ThongBao_NguoiChinhSua
+(
+	ID varchar(50) primary key,
+	IDThongBao varchar(50),
+	IDNguoiChinhSua varchar(50),
+	NgayChinhSua datetime,
+	GhiChu nvarchar(500),
+)
+
+create table TLBaiViet
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table BaiViet
+(
+	ID varchar(50) primary key,
+	IDTLBaiViet varchar(50),
+	TieuDe nvarchar(500),
+	NoiDung nvarchar(500),
+	ImagePath varchar(max),
+	GhiChu nvarchar(500),
+)
+
+create table BaiViet_NguoiChinhSua -- Dang bai/chinh sua
+(
+	ID varchar(50) primary key,
+	IDBaiViet varchar(50),
+	IDNguoiChinhSua varchar(50),
+	NgayChinhSua datetime,
+	GhiChu nvarchar(500),
+)
+
+create table BaiViet_NguoiThamGia
+(
+	ID varchar(50) primary key,
+	IDBaiViet varchar(50),
+	IDNguoiThamGia varchar(50),
+	NgayDangKy datetime,
+	GhiChu nvarchar(500),
+)
+
+create table NhomChat
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	NgayTao datetime,
+	GhiChu nvarchar(500),
+)
+
+create table NhomChat_NguoiThamGia -- thonng tin nguoi tham gia
+(
+	ID varchar(50) primary key,
+	IDNhomChat varchar(50),
+	IDNguoiThamGia varchar(50),
+	NgayThamGia datetime,
+	GhiChu nvarchar(500),
+)
+
+create table TinNhan
+(
+	ID varchar(50) primary key,
+	IDTaiKhoan varchar(50),
+	NoiDung varchar(500),
+	NgayGui datetime,
+	GhiChu nvarchar(500),
+)
+
+create table TinNhan_GuiDen -- Tin nhan duoc gui di
+(
+	ID varchar(50) primary key,
+	IDTinNhan varchar(50),
+	IDNguoiNhan varchar(50),
+	IDNhomNhan varchar(50),
+	DaXem int,
+	GhiChu nvarchar(500),
+)
+
+create table ChuDeCauHoi
+(
+	ID varchar(50) primary key,
+	Ten nvarchar(500),
+	GhiChu nvarchar(500),
+)
+
+create table CauHoi
+(
+	ID varchar(50) primary key,
+	IDNguoiGui varchar(50),
+	TieuDe nvarchar(500),
+	NoiDung nvarchar(500),
+	NgayGui datetime,
+	DuocDuyet int,
+	GhiChu nvarchar(500),
+)
+
+create table CauHoi_ChuDeCauHoi
+(
+	ID varchar(50) primary key,
+	IDCauHoi varchar(50),
+	IDChuDeCauHoi varchar(50),
+	GhiChu nvarchar(500),
+)
+
+create table CauHoi_NguoiTraLoi
+(
+	ID varchar(50) primary key,
+	IDCauHoi varchar(50),
+	IDNguoiTraLoi varchar(50),
+	NoiDung nvarchar(500),
+	NgayTraLoi datetime,
+	GhiChu nvarchar(500),
+)
+
+create table CauHoi_NguoiTraLoi_NguoiTraLoi
+(
+	ID varchar(50) primary key,
+	IDCauHoi_NguoiTraLoi varchar(50),
+	IDNguoiTraLoi varchar(50),
+	NoiDung nvarchar(500),
+	NgayTraLoi datetime,
+	GhiChu nvarchar(500),
+)
+
+create table CauHoi_NguoiDanhGia
+(
+	ID varchar(50) primary key,
+	IDCauHoi varchar(50),
+	IDNguoiDanhGia varchar(50),
+	HuuIch int,
+	NgayDanhGia datetime,
+	GhiChu nvarchar(500),
+)

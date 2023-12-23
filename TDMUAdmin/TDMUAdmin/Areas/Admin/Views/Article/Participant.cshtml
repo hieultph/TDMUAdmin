@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyParticipantOfArticle>
+
+@{
+    ViewBag.Title = "Participant";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <style>
+        .macd {
+            width: 200px;
+        }
+    </style>
+
+    <div class="content-wrapper">
+        <section>
+            @using (Html.BeginForm("Participant", "Article", FormMethod.Get))
+            {
+                <div class="row">
+                    <div class="col-lg m-4">
+                        <p>
+                            Mã bài viết:
+                            @Html.DropDownList("maBV", null, htmlAttributes: new { @class = "maBV" })
+                            @*
+                                <select name="maCD">
+                                    <option value="0">Tất cả chủ đề</option>
+                                    @foreach (var item in cd)
+                                    {
+                                        <option value="@item.MaCD">@item.TenChuDe</option>
+                                    }
+                                </select>
+                            *@
+                            Khoa/Viện:
+                            @Html.DropDownList("maKhoa", null, htmlAttributes: new { @class = "maKhoa" })
+                            Lớp:
+                            @Html.DropDownList("maLop", null, htmlAttributes: new { @class = "maLop" })
+                            Tìm theo tên sinh viên:
+                            <input type="text" name="strSearch" value="@ViewBag.Search" placeholder="Nhập tên cần tìm..." size="30" />
+                            <input type="submit" value="Tìm kiếm" />
+                        </p>
+                    </div>
+                </div>
+            }
+
+            @{
+                if (Model != null)
+                {
+                    <div class="row">
+                        <div class="col-lg m-4">
+                            <h2>KẾT QUẢ TÌM</h2>
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenNguoiThamGia)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IDLop)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TenKhoa)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.NgayDangKy)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TenNguoiThamGia)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IDLop)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TenKhoa)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.NgayDangKy)
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                }
+            }
+        </section>
+    </div>
+}
+
+
+

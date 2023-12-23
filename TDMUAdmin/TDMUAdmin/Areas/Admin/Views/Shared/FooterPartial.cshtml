@@ -1,0 +1,72 @@
+﻿<div class="content-wrapper">
+
+    @*===================================================*@
+
+    <section>
+        <div class="sm-chart-sec my-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-6" style="text-align:center;">
+                        <p>©2023 - TDMU Admin. Allright Reserved</p>
+                        <p>
+                            Website được phát triển để sử dụng làm bài tập thực hành môn Lập trình
+                            Web
+                        </p>
+                        <p>Email: abc@gmail.com</p>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-9 col-xs-6 foot">
+                        <h5>Số lượt truy cập: @ApplicationInstance.Application["HitCounter"]</h5>
+                        <h5>Số người online: @ApplicationInstance.Application["Online"]</h5>
+                    </div>
+                </div>
+                <div class="row mc-footer">
+                    <div class="col-lg-12 col-md-9 col-sm-9 col-xs-6" style="text-align:center;">
+                        <div>
+                            <img src="~/Areas/Admin/Assets/img/facebook.png" /> My Facebook
+                        </div>
+                        <div>
+                            <img src="~/Areas/Admin/Assets/img/youtube.png" /> My Youtube
+                        </div>
+                        <div>
+                            <img src="~/Areas/Admin/Assets/img/email.png" /> My Email
+                        </div>
+                        <div>
+                            <a href="@Url.Action("PaymentWithPayPal", "TDMUAdmin")"><img src="~/Areas/Admin/Assets/img/donate.png" /> Donate me a cup of tea</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .mc-footer div div img {
+        width: 50px;
+    }
+
+    .mc-footer > div {
+        display: flex;
+        justify-content: center;
+    }
+
+    .mc-footer div div {
+        border: 5px dotted #021137;
+        padding: 10px;
+        float: left;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        margin: 20px;
+    }
+
+    .sm-chart-sec.my-5 {
+        background: #f7f7f7;
+    }
+
+    a:hover {
+        color: red;
+    }
+</style>
+
+

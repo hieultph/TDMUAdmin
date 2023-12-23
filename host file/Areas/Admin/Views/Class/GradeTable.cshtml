@@ -1,0 +1,117 @@
+﻿@model TDMUAdmin.Models.TaiKhoan
+
+@{
+    ViewBag.Title = "GradeTable";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg-4 m-4">
+                    <img src="~/Areas/Admin/Assets/img/user-image/@Model.ImagePath" class="mc-user-image" />
+                </div>
+                <div class="col-lg-6">
+                    <p>Họ tên: @Model.HoTen</p>
+                    <p>SĐT: @Model.SDT</p>
+                    <p>Địa chỉ: @Model.DiaChi</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    @Html.DropDownList("MaNH", null, new { id = "dropdownMaNH" })
+                </div>
+            </div>
+
+            @*------------------Semester 1-----------------*@
+            <div class="row">
+                <div class="col-lg m-4">
+                    @Html.Action("LoadChildSemester", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <p>Dự đoán theo xu hướng: </p>
+                    <a href="@Url.Action("IncreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Tăng</a>
+                    <a href="@Url.Action("DecreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Giảm</a>
+                </div>
+            </div>
+
+            @*------------------Semester 2-----------------*@
+            <div class="row">
+                <div class="col-lg m-4">
+                    @Html.Action("LoadChildSemester", "Class", new { mssv = Model.ID, maHK = "HK0000000002", maNH = ViewBag.MaNH.SelectedValue })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <p>Dự đoán theo xu hướng: </p>
+                    <a href="@Url.Action("IncreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Tăng</a>
+                    <a href="@Url.Action("DecreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Giảm</a>
+                </div>
+            </div>
+
+            @*------------------Semester 3-----------------*@
+            <div class="row">
+                <div class="col-lg m-4">
+                    @Html.Action("LoadChildSemester", "Class", new { mssv = Model.ID, maHK = "HK0000000003", maNH = ViewBag.MaNH.SelectedValue })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <p>Dự đoán theo xu hướng: </p>
+                    <a href="@Url.Action("IncreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Tăng</a>
+                    <a href="@Url.Action("DecreasePredict", "Class", new { mssv = Model.ID, maHK = "HK0000000001", maNH = ViewBag.MaNH.SelectedValue })">Giảm</a>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <style>
+        .mc-user-image {
+            width: 200px;
+            border-radius: 50%;
+        }
+    </style>
+
+    <script>
+    $(document).ready(function () {
+        // Attach a function to handle the change event of the dropdown list
+        $('#dropdownMaNH').on('change', function () {
+            // Get the selected value
+            var selectedMaNH = $(this).val();
+
+            // Reload the page with the selected value
+            window.location.href = '@Url.Action("GradeTable", "Class")' + '?mssv=' + '@Model.ID' + '&maNH=' + selectedMaNH;
+        });
+    });
+    </script>
+
+    <style>
+        a:hover {
+            color: red;
+        }
+    </style>
+}
+

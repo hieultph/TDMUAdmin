@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="container">
+    <section class="about">
+        <article>
+            <h2>TỔNG QUAN</h2>
+            <strong>1. Giới thiệu</strong><br>
+            <p>
+                »  Tên trường
+                -       Tiếng Việt: Trường Đại học Thủ Dầu Một
+                Viết tắt: ĐH TDM
+                -       Tiếng Anh: Thu Dau Mot University
+                Viết tắt: TDMU
+                »  Loại hình trường: Công lập
+                »  Cơ quan chủ quản: Ủy ban Nhân dân tỉnh Bình Dương
+            </p>
+            <strong>2. Lịch sử hình thành và phát triển</strong><br>
+            <p>
+                Ngày 24 tháng 6 năm 2009, Đại học Thủ Dầu Một được thành lập theo Quyết định số 900/QĐ-TTg của Thủ tướng Chính phủ trên cơ sở nâng cấp từ trường Cao đẳng Sư phạm Bình Dương. Trải qua 47 năm hình thành và phát triển, trong đó có gần 15 năm đào tạo bậc đại học, sau đại học đa ngành, đa lĩnh vực, Trường thực hiện sứ mệnh cung cấp nguồn nhân lực chất lượng phục vụ phát triển kinh tế - xã hội và hội nhập quốc tế của tỉnh Bình Dương, miền Đông Nam Bộ - vùng kinh tế trọng điểm phía Nam và trở thành trung tâm tư vấn nghiên cứu trong khu vực.
+            </p>
+            <p>
+                Trường Đại học Thủ Dầu Một vinh dự là thành viên của tổ chức CDIO thế giới (từ năm 2015); Là thành viên liên kết của Hiệp hội các trường đại học Đông Nam Á – AUN (từ năm 2017). Trường đạt Chuẩn kiểm định chất lượng giáo dục quốc gia chu kỳ 1 vào năm 2017, chu kỳ 2 vào năm 2023. Đến năm 2023, Tháng 10/2019, trường có 20 ngành đào tạo đạt chuẩn kiểm định chất lượng của Bộ Giáo dục và Đào tạo (MOET), 8 ngành đạt chuẩn AUN-QA.
+            </p>
+            <p>
+                Tháng 8/2020, trường đạt chuẩn 4 sao UPM (University Performance Metrics). Hai năm liên tục, trường đều nằm trong top 50 cơ sở giáo dục có công bố quốc tế tốt nhất Việt Nam (vị trí thứ 42 năm 2018 và vị trí thứ 27 năm 2019). Năm 2022, trường đứng thứ 15 trên bảng xếp hạng 100 trường đại học Việt Nam VNUR. Năm 2023, trường xếp hạng 20/184 cơ sở giáo dục đại học tại Việt Nam theo bảng xếp hạng của Webometric, vào Top 5 trường đại học tại Việt Nam có tên trên bảng xếp hạng Schimago.
+            </p>
+            <strong>3. Cơ sở đào tạo</strong><br>
+            <p>
+                » Cơ sở tại Thành phố Thủ Dầu Một: số 6 Trần Văn Ơn, P.Phú Hòa, Tp.Thủ Dầu Một, tỉnh Bình Dương. Khuôn viên trường rộng 6,74 ha. Đây là nơi học tập, nghiên cứu của gần 19.000 CB-GV, SV của trường.
+                » Cơ sở tại Thị xã Bến Cát: tọa lạc tại Khu công nghiệp Mỹ Phước, Bến Cát với diện tích 57,6 ha được đầu tư xây dựng hiện đại, tích hợp nhiều công năng phục vụ hiệu quả công tác đào tạo, nghiên cứu của trường trong tương lai.
+            </p>
+
+        </article>
+
+        <article>
+            <h3>KHÁM PHÁ TDMU</h3>
+            <p>
+                TDMU - Thu Dau Mot University
+                2009
+                Thành lập Công lập Loại hình trường
+            </p>
+            <a href="#">Xem thêm giới thiệu TDMU</a>
+        </article>
+    </section>
+</div>
+
+<style>
+
+    .about {
+        display: grid;
+        grid-template-columns: 2.5fr 1fr;
+        grid-gap: 1.5rem;
+        margin: 1.7rem 0rem;
+    }
+
+        .about article {
+            background-color: white;
+            padding: 1rem;
+        }
+
+            .about article:first-child {
+                grid-row: 1 / span 3;
+            }
+
+                .about article:first-child h2 {
+                    padding: 0.7rem 0rem;
+                    font-size: 1.7rem;
+                    font-weight: 900;
+                }
+
+            .about article:last-child {
+                color: white;
+                background-color: var(--primary-color);
+            }
+
+                .about article:last-child h3 {
+                    padding: 0.7rem 0rem;
+                }
+
+                .about article:last-child a {
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 100%;
+                    color: white;
+                    background-color: var(--dark-color);
+                    text-align: center;
+                    padding: 0.5rem 0rem;
+                    margin-top: 0.7rem;
+                }
+</style>
+
+
+

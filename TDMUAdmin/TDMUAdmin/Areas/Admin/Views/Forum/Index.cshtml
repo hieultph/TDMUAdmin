@@ -1,0 +1,140 @@
+﻿@using TDMUAdmin.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<MyQuestion>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    var topicList = ViewBag.TopicList as List<SelectListItem>;
+    var filterList = ViewBag.FilterList as List<SelectListItem>;
+}
+
+<link rel="stylesheet" href="~/Areas/Admin/Assets/package/Forum/css/forum.css" />
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <!-- Main content -->
+                <div class="col-lg-8 m-4">
+                    <div class="row text-left mb-5">
+                        <div class="col-lg-6 mb-3 mb-sm-0">
+                            <h4>Chủ để: </h4>
+                            @Html.DropDownList("TopicList", null, new { id = "i-TopicDropDown" })
+                        </div>
+                        <div class="col-lg-6 text-lg-right">
+                            <h4>Lọc theo: </h4>
+                            @Html.DropDownList("FilterList", null, new { id = "i-FilterDropDown" })
+                        </div>
+                    </div>
+                    <!-- Load all of the question posts to view -->
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <div class="card row-hover pos-relative py-3 px-3 mb-3 border-warning border-top-0 border-right-0 border-bottom-0 rounded-0 mc-question-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 mb-3 mb-sm-0">
+                                        <p hidden class="mc-question-key">@item.IDCauHoi</p>
+                                        <h5>
+                                            <a href="#" class="text-primary">@item.TieuDe</a>
+                                        </h5>
+                                        <p class="text-sm"><span class="op-6">Ngày đăng: </span> <a class="text-black" href="#">@item.NgayDang</a> <span class="op-6">bởi: </span> <a class="text-black" href="#">@item.NguoiDang</a></p>
+                                        <p>@Html.Raw(@item.NoiDung)</p>
+                                        <div class="text-sm op-5"> <a class="text-black mr-2" href="#">Chủ đề: @item.ChuDe</a> </div>
+                                    </div>
+                                    <div class="col-md-4 op-7">
+                                        <div class="row text-center op-7">
+                                            <div class="col px-1"> <i class="ion-thumbsup icon-1x"></i> <span class="d-block text-sm">@item.LuotThich thích</span> </div>
+                                            <div class="col px-1"> <i class="ion-thumbsdown icon-1x"></i> <span class="d-block text-sm">@item.LuotKhongThich không thích</span> </div>
+                                            <div class="col px-1"> <i class="ion-ios-chatboxes icon-1x"></i> <span class="d-block text-sm">@item.LuotTraLoi trả lời</span> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <!-- Sidebar content -->
+                <div class="col-lg-3 mb-4 mb-lg-0 px-lg-0 mt-lg-0">
+                    @Html.Action("Sidebar", "Forum", new { accessLevel = ViewBag.AccessLevel })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg m-4">
+                    @*Tạo liên kết phần trang*@
+                    <div>Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /@Model.PageCount</div>
+                    <div class="MenuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+                    </div>
+                    <style>
+                        .MenuTrang {
+                            display: inline;
+                            text-align: center;
+                            display: block;
+                        }
+                    </style>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+    $(document).ready(function () {
+        $('#i-TopicDropDown, #i-FilterDropDown').on('change', function () {
+            var topic = $('#i-TopicDropDown').val();
+            var filter = $('#i-FilterDropDown').val();
+
+            var url = '@Url.Action("Index", "Forum")';
+            var params = [];
+
+            if (topic) {
+                params.push('topic=' + topic);
+            }
+
+            if (filter) {
+                params.push('filter=' + filter);
+            }
+
+            if (params.length > 0) {
+                url += '?' + params.join('&');
+            }
+
+            window.location.href = url;
+        });
+    });
+
+    $(document).ready(function () {
+        $('.mc-question-item').on('click', function () {
+            var id = $(this).find('.mc-question-key').text();
+
+            window.location.href = '@Url.Action("Details", "Forum")' + '?maCH=' + id;
+        })
+    })
+    </script>
+}
+
+
+

@@ -1,0 +1,184 @@
+﻿@model TDMUAdmin.Models.CauHoi
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<br>
+<h2>FAQ</h2>
+<br>
+<p>Link video hướng dẫn xem thời khóa biểu:<a href="https://youtu.be/bZgpdMVxt4A">Xem tại đây!</a></p>
+<p>Hướng dẫn đăng nhập Email lần đầu tiên:<a href="https://youtu.be/bZgpdMVxt4A">Xem tại đây!</a></p>
+<p>Hướng dẫn đăng nhập cổng thông tin sinh viên:<a href="https://youtu.be/bZgpdMVxt4A">Xem tại đây!</a></p>
+
+@using (Html.BeginForm("Create", "CauHoi", FormMethod.Post, new
+{
+    @enctype =
+"multipart/form-data"
+}))
+{
+    @Html.AntiForgeryToken()
+<h1>Góp ý - Phản hồi - Đặt câu hỏi</h1>
+<form id="form">
+    <div class="form-control">
+        <label for="name">
+            Tên
+        </label>
+        <input type="text" id="name" placeholder="Vui lòng nhập tên" required>
+    </div>
+
+    <div class="form-control">
+        <label for="inf">Mã lớp</label>
+        <input type="text" id="inf" placeholder="Vui lòng nhập mã lớp">
+    </div>
+
+    <div class="form-control">
+        <label for="khoa">Khoa</label>
+        <select id="khoa" name="khoa" required>
+            <option value="">Vui lòng chọn khoa</option>
+            <option value="k1">Kỹ thuật - công nghệ</option>
+            <option value="k2">Kinh tế</option>
+            <option value="k3">Khoa học quản lý</option>
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label for="email">
+            Email
+        </label>
+        <input type="email" id="email" placeholder="Vui lòng nhập email" required>
+    </div>
+
+
+    <div class="form-control">
+        <label for="gender">Giới tính</label>
+        <select id="gender" name="gender" required>
+            <option value="">Vui lòng chọn</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
+            <option value="other">Khác</option>
+        </select>
+    </div>
+    <div class="form-control">
+        <label for="contact">Sđt Liên Hệ</label>
+        <input type="text" id="contact" placeholder="Vui lòng nhập sđt">
+    </div>
+
+    <div class="form-control">
+        <label for="inf">Mã số sinh viên</label>
+        <input type="text" name="nMssv" id="mssv" placeholder="Vui lòng nhập mã số sinh viên">
+    </div>
+
+    <div class="form-control">
+        <label for="comment">
+            Tiêu Đề
+        </label>
+        <input type="text" id="tieude" placeholder="Vui lòng nhập tiêu đề" name="sTieuDe" value="@ViewBag.TieuDe" required>
+
+    </div>
+
+    <div class="form-control">
+        <label for="comment">
+            Nội Dung
+        </label>
+        <textarea name="sNoiDung"> @ViewBag.NoiDung</textarea>
+    </div>
+
+    <div class="form-control">
+        <label for="date">
+            Ngày Gửi
+        </label>
+        <input type="date" name="dNgayGui" id="date" required>
+    </div>
+
+    <div class="form-control">
+        <label for="comment">
+            Ghi Chú
+        </label>
+        <textarea name="sGuiChu">@ViewBag.GhiChu</textarea>
+    </div>
+    <button type="submit" value="submit">Gửi</button>
+
+</form>
+}
+<div>
+    @Html.ActionLink("QUAY VỀ TRANG ĐẦU", "Index", "TDMUWebsite")
+</div>
+
+<script>
+    const form = document.getElementById('form');
+    const email = document.getElementById('email');
+    const name = document.getElementById('name');
+    const age = document.getElementById('age');
+    const gender = document.getElementById('gender')
+    const tieude = document.getElementById('tieude')
+
+
+    form.addEventListener('submit', (event) => {
+        if (!validateEmail(email.value)) {
+            alert('Please enter a valid email address');
+            event.preventDefault();
+        }
+
+        if (name.value.length < 3) {
+            alert('Name must be at least 3 characters long');
+            event.preventDefault();
+        }
+
+        if (isNaN(age.value)) {
+            alert('Age must be a number');
+            event.preventDefault();
+        }
+    });
+
+
+
+</script>
+
+<style>
+
+    form {
+        background-color: #d97b7b;
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px 20px;
+        box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+    }
+
+
+    .form-control {
+        text-align: left;
+        margin-bottom: 25px;
+    }
+
+
+        .form-control label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+
+        .form-control input,
+        .form-control select,
+        .form-control textarea {
+            border: 5px solid #79e782;
+            border-radius: 2px;
+            font-family: inherit;
+            padding: 10px;
+            display: block;
+            width: 95%;
+        }
+
+    button {
+        background-color: #ed0f47;
+        border: 5px solid #d6f02f;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 21px;
+        display: block;
+        width: 100%;
+        margin-top: 60px;
+        margin-bottom: 25px;
+    }
+</style>

@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@*<h2>DangNhap</h2>*@
+
+<style type="text/css">
+    td {
+        height: 40px;
+    }
+
+    table {
+        justify-content: center;
+        display: flex;
+    }
+
+    .lh-google-signin {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<div class="content-wrapper">
+
+    @*===================================================*@
+
+    <section>
+        <div class="sm-chart-sec my-5">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg">
+                        <h4 style="color:red; text-align:center;">@ViewBag.ThongBao</h4>
+                        <h2 style="text-align:center;">ĐĂNG NHẬP</h2>
+                        <form action="@Url.Action("Login", "User")" method="post">
+                            <table align="center">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.ValidationSummary(true)
+                                    if (Request.Cookies["TenDN"] != null && Request.Cookies["MatKhau"] != null)
+                                    {
+                                        <tr>
+                                            <td>Tên đăng nhập: </td>
+                                            <td>
+                                                @Html.TextBox("TenDN", Request.Cookies["TenDN"].Value)
+                                                @ViewData["Err1"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mật khẩu: </td>
+                                            <td>
+                                                @Html.Password("MatKhau", Request.Cookies["MatKhau"].Value)
+                                                @ViewBag.Err2
+                                            </td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>Tên đăng nhập: </td>
+                                            <td>
+                                                @*@Html.TextBox("TenDN")*@
+                                                <input type="text" name="TenDN" value="" />
+                                                @ViewData["Err1"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mật khẩu: </td>
+                                            <td>
+                                                @*@Html.Password("MatKhau")*@
+                                                <input type="password" name="MatKhau" value="" />
+                                                @ViewBag.Err2
+                                            </td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            @Html.CheckBox("remember")<span style="font-style:italic">Nhớ thông tin đăng nhập</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <input type="hidden" name="url" value="@ViewBag.url" />
+                                            <input type="submit" value="Đăng nhập" />
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                            <div class="lh-google-signin">
+                                <a target="_blank" href="@ViewBag.Response">Google Sign-in</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

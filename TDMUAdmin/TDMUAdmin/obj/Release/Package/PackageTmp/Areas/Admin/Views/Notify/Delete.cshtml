@@ -1,0 +1,87 @@
+﻿@model TDMUAdmin.Models.MyNotify
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2>XÁC NHẬN THÔNG TIN CẦN XÓA</h2>
+                    <h3>Bạn quyết định xóa thông báo này?</h3>
+                    <h4>@Html.Raw(ViewBag.ThongBao)</h4>
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dt>ID thông báo:</dt>
+                            <dd>@Html.DisplayFor(model => model.ID) </dd>
+                            <dt>Người gửi:</dt>
+                            <dd>@Html.DisplayFor(model => model.TenNguoiGui) </dd>
+                            <dt>Ngày gửi:</dt>
+                            <dd>@Html.DisplayFor(model => model.NgayGui) </dd>
+                            <dt>Tiêu đề:</dt>
+                            <dd>@Html.DisplayFor(model => model.TieuDe) </dd>
+                            <dt> Nội dung: </dt>
+                            <dd>
+                                @Html.TextAreaFor(model => model.NoiDung)
+                            </dd>
+                            <dt>Ghi chú:</dt>
+                            <dd>@Html.DisplayFor(model => model.GhiChu) </dd>
+                        </dl>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-actions no-color">
+                                <input type="submit" value="XÓA" class="btn btn-default" /> |
+                                @Html.ActionLink("VỀ TRANG QUẢN LÝ THÔNG BÁO", "Index")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <style type="text/css">
+        img {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        h3, h4 {
+            color: red;
+            font-weight: bold;
+        }
+
+        input.btn.btn-default {
+            border: 1px solid;
+        }
+
+        a:hover {
+            color: red;
+        }
+    </style>
+}
+

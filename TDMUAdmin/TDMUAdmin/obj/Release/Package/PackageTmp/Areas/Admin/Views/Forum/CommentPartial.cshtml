@@ -1,0 +1,6 @@
+﻿@using (Html.BeginForm("CommentPartial", "Forum", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <input class="form-control" placeholder="Thêm bình luận" type="text" name="sBinhLuan" required>
+    <input name="sMaCH" type="text" value="@ViewBag.MaCH" hidden />
+    <input type="submit" value="Đăng" class="btn btn-default" />
+}

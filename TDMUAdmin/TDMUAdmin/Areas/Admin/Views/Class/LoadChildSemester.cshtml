@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MySubject>
+
+<p>Học kỳ: @Html.DisplayFor(item => item.FirstOrDefault().HocKy)</p>
+<table class="table">
+    <thead>
+        <tr>
+            @foreach (var item in Model)
+            {
+                <th>@item.Ten</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model)
+            {
+                <td>@item.DGK</td>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model)
+            {
+                <td>@item.DCK</td>
+            }
+        </tr>
+        <tr>
+            @foreach (var item in Model)
+            {
+                <td>@item.DTB</td>
+            }
+        </tr>
+    </tbody>
+</table>
+<p>Điểm tổng kết: @string.Format("{0:0.00}", @ViewBag.DTK)</p>
+<p>Tổng số tín chỉ: @ViewBag.SoTC</p>
+<p>Điểm rèn luyện: @ViewBag.DRL</p>

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<TDMUAdmin.Models.ThongBao>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<section>
+    <div class="container">
+        <h1 class="editor-h1">THÔNG BÁO</h1>
+        <div class="articles">
+            @foreach (var tt in Model)
+            {
+                <a href="@Url.Action("ChiTiet", "ThongBao", new { id = tt.ID })" class="card">
+                    <article>
+                        <p class="entertainment-category">News</p>
+                        <h1>@tt.TieuDe</h1>
+                        <p>
+                            @tt.NoiDung
+                        </p>
+                    </article>
+                </a>
+
+            }
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">24/10/2023</p>
+                    <h1>Thông báo nhắc nợ học phí học kỳ I (NH 2023 - 2024)</h1>
+                    <p>
+                        Viện Kỹ thuật - Công nghệ kính gửi Quý Thầy/Cô và Mến gửi các em sinh viên văn bản đến số 102/TB-ĐHTDM ngày 26/10/2023 Thông báo nhắc nợ học phí học kỳ I năm học 2023-2024.Thời gian thu nợ học phí từ ngày 26/10/2023 đến ngày 06/11/2023.
+                    </p>
+                </article>
+            </a>
+
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">23/10/2023</p>
+                    <h1>Về việc tổ chức Kỳ thi cấp chứng chỉ năng lực Tiếng Anh EPT-TDMU </h1>
+                    <p>
+                        Thông báo về việc tổ chức Kỳ thi cấp chứng chỉ năng lực Tiếng Anh EPT-TDMU khóa ngày 05/11/2023. Thời gian thi: Cả ngày 05/11/2023 (Chủ nhật)
+                    </p>
+                </article>
+            </a>
+
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">22/10/2023</p>
+                    <h1>ĐĂNG KÝ THAM GIA CHƯƠNG TRÌNH TẬP HUẤN KỸ NĂNG</h1>
+                    <p>
+                        Kỹ thuật - Công nghệ tổ chức chương trình tập huấn kỹ năng CÁC XU THẾ CÔNG NGHỆ VÀ ỨNG DỤNG CÔNG NGHỆ BLOCKCHAIN VÀO SẢN PHẨM SỐ. Thời gian: 7h00, Sáng thứ Bảy, ngày 11/11/2023
+                    </p>
+                </article>
+            </a>
+
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">21/10/2023</p>
+                    <h1>NHẮC NHỞ CÀI ĐẶT APP THANH NIÊN VÀ HOÀN THÀNH THI NGHỊ QUYẾT ĐẠI HỘI ĐOÀN</h1>
+                    <p>
+                        Đề nghị các đoàn viên chi đoàn chưa thực hiện cài đặt app Thanh niên nhanh chóng thực hiện cài đặt app Thanh niên và hoàn thành thi nghị quyết(Có danh sách đính kèm). Ban Chấp hành các chi đoàn nhắc nhở đoàn viên chi đoàn mình hoàn thành.
+                    </p>
+                </article>
+            </a>
+
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">20/11/2023</p>
+                    <h1>hướng dẫn tham gia Bảo hiểm y tế năm 2024</h1>
+                    <p>
+                        Viện Kỹ thuật - Công nghệ mến gửi các em sinh viên văn bản đến số 107/TB-ĐHTDM ngày 09/11/2023 Thông báo V/v hướng dẫn tham gia Bảo hiểm y tế năm 2024.
+                    </p>
+                </article>
+            </a>
+
+            <a href="#" class="card">
+                <article>
+                    <p class="entertainment-category">24/11/2023</p>
+                    <h1>Kế hoạch tổ chức các khóa tập huấn dành cho Giảng viên và Sinh viên</h1>
+                    <p>
+                        Viện Kỹ thuật - Công nghệ kính gửi Quý Thầy/Cô và mến gửi các em sinh viên văn bản đến số 105/KH-ĐHTDM ngày 16/11/2023 Kế hoạch tổ chức các khóa tập huấn dành cho Giảng viên và Sinh viên.
+                    </p>
+                </article>
+            </a>
+
+
+
+        </div>
+    </div>
+
+
+
+</section>
+
+<style>
+
+    .editor-h1 {
+        font-size: 1.6rem;
+        margin: 1rem 0rem;
+        letter-spacing: 1px;
+    }
+
+    .articles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1rem;
+    }
+
+    .card {
+        background-color: white;
+        padding: 1rem;
+        text-decoration: none;
+        color: black;
+    }
+
+        .card:hover {
+            box-shadow: 3px 5px 10px rgb(199, 199, 199);
+        }
+</style>

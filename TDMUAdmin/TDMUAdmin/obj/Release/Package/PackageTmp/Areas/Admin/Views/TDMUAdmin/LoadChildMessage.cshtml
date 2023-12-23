@@ -1,0 +1,21 @@
+﻿@model IEnumerable<TDMUAdmin.Models.MyMessage>
+
+<a href="#" class="nav-link user" id="Notify" data-bs-toggle="dropdown">
+    <img src="~/Areas/Admin/Assets/img/message.png" class="icon" />
+    <p class="count bg-clc">@Model.Count()</p>
+</a>
+
+<div class="dropdown-menu">
+    <div class="dp-main-menu">
+        @foreach (var item in Model)
+        {
+            <a href='@Url.Action("Index", "Texting")' class="dropdown-item message-item">
+                <img src="~/Areas/Admin/Assets/img/user-image/@item.ImagePath" alt="" class="sms-user" />
+                <div class="user-message-info">
+                    <p class="m-user-name">@item.TenNG</p>
+                    <p class="user-role">@item.NoiDung</p>
+                </div>
+            </a>
+        }
+    </div>
+</div>

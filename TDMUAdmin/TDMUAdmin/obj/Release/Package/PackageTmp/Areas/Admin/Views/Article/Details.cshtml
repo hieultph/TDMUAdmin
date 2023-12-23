@@ -1,0 +1,80 @@
+﻿@model TDMUAdmin.Models.MyArticle
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@{
+    // Check if ViewBag.AccessLevel is not null and can be converted to string
+    string accessLevelString = ViewBag.AccessLevel != null ? ViewBag.AccessLevel.ToString() : "0";
+}
+
+@if (int.TryParse(accessLevelString, out int accessLevel) && (accessLevel > 4 || accessLevel < 1))
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2 style="color: red;">RẤT TIẾC, BẠN KHÔNG CÓ QUYỀN XEM THÔNG TIN TRÊN TRANG NÀY!</h2>
+                    <h4>Liên hệ người quản trị để được phân quyền hoặc giải đáp các thắc mắc, xin cảm ơn!</h4>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+else
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="row">
+                <div class="col-lg m-4">
+                    <h2>CHI TIẾT BÀI VIẾT</h2>
+
+                    <div>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <dd>
+                                @Html.DisplayFor(model => model.TieuDe)
+                            </dd>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NguoiDang)
+                            </dd>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NgayDang)
+                            </dd>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NguoiChinhSua)
+                            </dd>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.NgayChinhSua)
+                            </dd>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.TenTheLoai)
+                            </dd>
+
+                            <dd>
+                                @Html.TextAreaFor(model => model.NoiDung, new { @class = "mc-tinymce" } )
+                            </dd>
+
+                        </dl>
+                    </div>
+                    <p>
+                        <a href="@Url.Action("Participant", "Article", new { MaBV = Model.ID })">Người tham gia</a>
+                    </p>
+                    <p>
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+                        @Html.ActionLink("Back to List", "Index")
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+
+

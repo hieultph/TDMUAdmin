@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TDMUAdmin.Models.BaiViet>
+
+@{
+    ViewBag.Title = "TinTuc";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<section>
+    <div class="container">
+        <h1 class="editor-h1">TIN TỨC</h1>
+        <div class="articles">
+            @foreach (var tt in Model)
+            {
+                <a href="@Url.Action("ChiTiet", "TinTuc", new { id = tt.ID })" class="card">
+                    <img src="~/Assets/images/TT.png" alt="" />
+                    <article>
+                        <p class="entertainment-category">News</p>
+                        <h1>@tt.TieuDe</h1>
+                        <p>
+                            @tt.NoiDung
+                        </p>
+                    </article>
+                </a>
+
+            }
+        </div>
+    </div>
+    
+
+
+</section>
+
+<style>
+
+    .editor-h1 {
+        font-size: 1.6rem;
+        margin: 1rem 0rem;
+        letter-spacing: 1px;
+    }
+
+    .articles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 1rem;
+    }
+
+        .articles > a:nth-child(1),
+        .articles > a:last-child {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1rem;
+            grid-column: 1 / span 2;
+            align-items: center;
+        }
+
+        .articles > a:last-child {
+            grid-column: 2 / span 2;
+        }
+
+        .articles > a:nth-child(2) {
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        .articles > a:nth-child(6) {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+    .card {
+        background-color: white;
+        padding: 1rem;
+        text-decoration: none;
+        color: black;
+    }
+
+        .card:hover {
+            box-shadow: 3px 5px 10px rgb(199, 199, 199);
+        }
+</style>

@@ -1,0 +1,83 @@
+﻿ <div class="left-menu">
+    <div class="menubar-content">
+        <nav class="animated bounceInDown">
+            <ul id="sidebar">
+                <li class="active">
+                    <a href="#" data-url="@Url.Action("Index", "TDMUAdmin")"><i class="fas fa-home"></i>Trang chủ</a>
+                </li>
+                <li>
+                    <a href="#" data-url="@Url.Action("Index", "Article")"><i class="fab fa-telegram-plane"></i>Bài viết</a>
+                </li>
+                <li>
+                    <a href="#" data-url="@Url.Action("Index", "Class")"><i class="fas fa-table"></i>Quản lý lớp học</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-table"></i>Phản hồi</a>
+                </li>
+                <li>
+                    <a href="#" data-url="@Url.Action("Index", "Forum")"><i class="fas fa-table"></i>Forums giải đáp</a>
+                </li>
+                <li>
+                    <a href="#" data-url="@Url.Action("Index", "Notify")"><i class="fas fa-bell"></i>Thông báo</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-home"></i>Bản đồ</a>
+                </li>
+                <li>
+                    <a href="#" data-url="@Url.Action("Index", "Schedule")"><i class="fab fa-calendar-alt"></i>Thời khóa biểu</a>
+                </li>
+
+                @*----element has sub menu*@
+                <li class="sub-menu">
+                    <a href="#">
+                        <i class="fas fa-cogs"></i>Settings
+                        <div class="fa fa-caret-down right"></div>
+                    </a>
+                    <ul class="left-menu-dp">
+                        <li><a href="#"><i class="fas fa-user-circle"></i>Account</a></li>
+                        <li><a href="#"><i class="fas fa-id-card"></i>Profile</a></li>
+                        <li><a href="#"><i class="fas fa-fingerprint"></i>Security &amp; Privacy</a></li>
+                        <li><a href="#"><i class="fas fa-key"></i>Password</a></li>
+                        <li><a href="#"><i class="fas fa-bell"></i>Notification</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fas fa-book"></i>Documentation</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i>Đăng xuất</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+ <script>
+     $(document).ready(function () {
+         $('#sidebar li a').click(function (e) {
+             // Get the URL from the data-url attribute
+             var url = $(this).data('url');
+
+             // Save the clicked URL to local storage
+             localStorage.setItem('lastClickedUrl', url);
+
+             // Prevent the default behavior of the anchor tag
+             e.preventDefault();
+
+             // Navigate to the specified URL
+             if (url) {
+                 window.location.href = url;
+             }
+         });
+
+         // Set the 'active' class based on the stored URL when the page loads
+         var lastClickedUrl = localStorage.getItem('lastClickedUrl');
+         if (lastClickedUrl) {
+             // Remove 'active' class from all li elements
+             $('#sidebar li').removeClass('active');
+
+             $('#sidebar li a[data-url="' + lastClickedUrl + '"]').closest('li').addClass('active');
+         }
+     });
+ </script>

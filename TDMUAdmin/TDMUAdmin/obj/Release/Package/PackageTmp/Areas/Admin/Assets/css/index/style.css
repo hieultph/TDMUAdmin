@@ -1,0 +1,183 @@
+.content-wrapper.hide {
+    margin-left: 0;
+}
+
+.content-wrapper {
+    margin-left: 240px;
+    margin-top: 65px;
+    transition: .5s;
+}
+
+.top-chart-earn {
+    border-radius: 5px;
+    padding-top: 15px;
+    box-shadow: -2px 3px 13px 0px #ddd6;
+}
+
+.last-month {
+    line-height: 20px;
+    text-align: center;
+}
+
+.last-month h5 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.last-month p {
+    font-size: 12px;
+    color: #777;
+}
+
+.earn {
+    margin: 12px 0;
+}
+
+.earn h2 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.sale h2 {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.char-nav.active {
+    background-color: #fff !important;
+    color: var(--main-color) !important;
+    border-bottom: 2px solid var(--main-color);
+    border-radius: 0;
+}
+
+.char-nav {
+    color: var(--second-color);
+    padding: 0px 15px;
+    transition: .3s;
+}
+
+.char-nav:hover {
+    color: var(--main-color);
+}
+
+.chart-header-tab {
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/*--------------top section---------------------*/
+
+.bdr-cls {
+    border-right: 1px solid #dddddd6b;
+}
+
+.wre-sec {
+    overflow: hidden;
+    border-top: 1px solid #dddddd6b;
+}
+
+.earn-view {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    padding: 10px 0;
+}
+
+.earn-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    padding: 3px;
+    line-height: 20px;
+    font-size: 16px;
+    color: var(--white-color);
+}
+
+.wallet {
+    background: var(--main-color);
+}
+
+.referral {
+    background: #7d12ce;
+}
+
+.sales {
+    background: #0ea3d0;
+}
+
+::before {
+}
+
+.earning {
+    background: #fbbf15;
+}
+
+.traffice-title {
+    text-align: left;
+    font-size: 17px;
+    font-weight: 500;
+    padding-left: 15px;
+}
+
+/*======================traffice chart style================*/
+
+div#chart-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*======================small chart style=======================*/
+
+.revinue.revinue-one_hybrid {
+    background: linear-gradient(121deg, rgba(194, 13, 90, 1)25%, rgb(162 101 102)100%);
+}
+
+.revinue {
+    padding-top: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.w-title {
+    display: flex;
+    padding: 0 7px 10px;
+    align-items: center;
+}
+
+.w-icon {
+    font-size: 28px;
+    color: var(--white-color);
+    padding-right: var(--mb-2);
+}
+
+.sm-chart-text {
+    line-height: 20px;
+    color: var(--white-color);
+}
+
+p.w-value {
+    font-size: 16px;
+}
+
+/*page view chart*/
+
+.page-one_hybrid {
+    background: linear-gradient(121deg, rgba(92 26 195)25%, rgb(139 25 206 / 95%)100%);
+}
+
+/*=============bounce rate chart design=========*/
+
+.bounce-one_hybrid {
+    background: linear-gradient(121deg, rgba(26 179 195)25%, rgb(25 97 206 / 95%)100%);
+}
+
+/*=============revinue status chart design=========*/
+
+.rv-status-one_hybrid {
+    background: linear-gradient(121deg, rgba(232 202 53)25%, rgb(206 125 25 / 95%)100%);
+}
