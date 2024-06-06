@@ -2,7 +2,7 @@
 
 ## About This Project
 
-Hosted on Somee: [TDMU Website](http://tdmuwebsite.somee.com/)
+Hosted on Somee: [TDMU Website](http://tdmuwebsite.somee.com/) and [TDMU Admin Website](http://tdmuwebsite.somee.com/admin/tdmuadmin/)
 
 This project is a learning tool and is not a fully-fledged version. There are still many things to do. Feel free to explore and use it as a reference!
 
